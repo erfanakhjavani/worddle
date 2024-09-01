@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:wordle/Core/Constants/app_colors.dart';
-import 'package:wordle/Core/Themes/theme_service.dart';
-
 import '../Model/splash_model.dart';
 import '../ViewModel/splash_viewmodel.dart';
 
@@ -18,7 +14,6 @@ class SplashView extends GetView<SplashViewmodel> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Get.find<ThemeService>().isDarkMode();
     var width = MediaQuery.sizeOf(context).width;
     var height = MediaQuery.sizeOf(context).width;
     return Scaffold(
@@ -39,7 +34,8 @@ class SplashView extends GetView<SplashViewmodel> {
                   if (controller.connectionStatus.value == ConnectionStatus.connected
                  || controller.connectionStatus.value ==
                   ConnectionStatus.initial
-                  ) {}
+                  ) {
+                  }
                   else if (controller.connectionStatus.value ==
                       ConnectionStatus.disconnected) {
                     return Padding(
@@ -49,17 +45,14 @@ class SplashView extends GetView<SplashViewmodel> {
                         children: [
                            Text(
                             'please check your connection..!',
-                            style: Get.textTheme.bodyLarge!.copyWith(
-                                color: theme ? AppColors.primary : AppColors.secondary,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Irs"),
+                            style: Get.textTheme.bodyLarge
                           ),
                           IconButton(
                             onPressed: () {
                               controller.checkConnection();
                             },
                             icon:  Icon(Icons.autorenew,
-                                color: theme ? AppColors.primary : AppColors.secondary),
+                                color: Get.theme.primaryColor),
                           ),
                         ],
                       ),
@@ -67,7 +60,7 @@ class SplashView extends GetView<SplashViewmodel> {
                   }
                     return Padding(
                       padding: EdgeInsets.only(left: width / 8),
-                      child: LoadingAnimationWidget.inkDrop(color: theme ? AppColors.primary : AppColors.secondary, size: 20),
+                      child: LoadingAnimationWidget.inkDrop(color: Get.theme.primaryColor, size: 20),
                     );
                 }),
 

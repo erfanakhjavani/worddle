@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
+import 'package:wordle/View/splash_view.dart';
 import 'Core/Bindings/bindings.dart';
 import 'Core/Constants/app_route.dart';
 import 'Core/Themes/themes.dart';
+import 'View/GameView/game_view.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp( Main());
+  Get.put(ThemeService());
+  runApp(const Main());
 }
 
 class Main extends StatelessWidget {
-   Main({super.key});
+   const Main({super.key});
 
-  final ThemeService themeService = Get.put(ThemeService());
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,9 @@ class Main extends StatelessWidget {
       initialBinding: Binding(),
       darkTheme: Themes.dark,
       theme: Themes.light,
-      themeMode: themeService.theme,
-      initialRoute: AppRoute.splashView,
+      themeMode: Get.find<ThemeService>().theme,
+      // initialRoute: AppRoute.splashView,
+      home: const SplashView(),
     );
   }
 }

@@ -24,7 +24,7 @@ class SplashRepository extends GetConnect {
       } on TimeoutException catch (_) {
         print(_.toString());
         //! Request timed out (considered as no internet access).
-        return false;
+        return true;
       } catch (e) {
         e.toString();
         //! Other errors.

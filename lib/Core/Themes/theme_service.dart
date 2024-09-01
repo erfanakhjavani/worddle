@@ -16,4 +16,5 @@ class ThemeService extends GetxService {
         (_themeMode.value == ThemeMode.system &&
             WidgetsBinding.instance.window.platformBrightness == Brightness.dark);
   }
+
 }
