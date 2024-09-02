@@ -43,16 +43,17 @@ class GameKeyboard extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              color: Colors.grey.shade300,
+              color: Colors.blueGrey.shade300,
             ),
             child: Text(
               e,
               style:
-              Get.textTheme.bodyMedium!.copyWith(color: Colors.black),
+              Get.textTheme.bodyMedium!.copyWith(color: Colors.white),
             ),
           ),
         );
       }).toList(),
     );
   }
+
 }

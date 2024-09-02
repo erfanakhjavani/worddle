@@ -30,7 +30,13 @@ class GameView extends StatelessWidget {
             // پیام بازی
             Obx(() => Text(
               viewModel.wordMessage.value,
-              style: const TextStyle(color: Colors.red, fontSize: 16),
+              style: TextStyle(
+                color: viewModel.wordMessage.value.contains("Congratulations")
+                    ? Colors.green
+                    : Colors.red,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             )),
             const SizedBox(height: 20),
             // صفحه نمایش تخته بازی

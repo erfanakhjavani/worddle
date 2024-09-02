@@ -29,7 +29,8 @@ class GameBoard extends StatelessWidget {
                   color = Colors.grey.shade800;
               }
 
-              return Container(
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.all(16.0),
                 width: 64.0,
                 height: 64.0,
@@ -55,3 +56,4 @@ class GameBoard extends StatelessWidget {
     });
   }
 }
+
