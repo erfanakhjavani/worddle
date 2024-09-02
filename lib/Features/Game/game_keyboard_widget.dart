@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'game_viewmodel.dart';
 
 class GameKeyboard extends StatelessWidget {
-  GameKeyboard({Key? key}) : super(key: key);
+  GameKeyboard({super.key});
 
   final GameViewModel viewModel = Get.find<GameViewModel>();
 
-  final List<String> row1 = 'QWERTYUIOP'.split("");
-  final List<String> row2 = 'ASDFGHJKL'.split("");
-  final List<String> row3 = ["DEL", "Z", "X", "C", "V", "B", "N", "M", "SUBMIT"];
+  final List<String> row1 = 'QWERTYUIOP'.split('');
+  final List<String> row2 = 'ASDFGHJKL'.split('');
+  final List<String> row3 = ['DEL', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DO'];
 
   @override
   Widget build(BuildContext context) {
@@ -27,33 +27,39 @@ class GameKeyboard extends StatelessWidget {
 
   Widget rowOfKeyboard(List<String> row) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: row.map((e) {
-        return InkWell(
-          onTap: () {
-            if (e == "DEL") {
-              viewModel.deleteLetter();
-            } else if (e == "SUBMIT") {
-              viewModel.submitGuess();
-            } else {
-              viewModel.insertLetter(e);
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: Colors.blueGrey.shade300,
-            ),
-            child: Text(
-              e,
-              style:
-              Get.textTheme.bodyMedium!.copyWith(color: Colors.white),
-            ),
+        return Expanded(
+          flex: (e == 'DEL' || e == 'DO') ? 2 : 1, // افزایش سایز کلیدهای "DEL" و "DO"
+          child: InkWell(
+            onTap: () {
+              if (e == 'DEL') {
+                viewModel.deleteLetter();
+              } else if (e == 'DO') {
+                viewModel.submitGuess();
+              } else {
+                viewModel.insertLetter(e);
+              }
+            },
+            child: Obx(() {
+              Color keyColor = viewModel.letterColors[e] ?? Colors.blueGrey.shade300;
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                padding: const EdgeInsets.only(top: 12,bottom: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: keyColor,
+                ),
+                child: Center(
+                  child: Text(
+                    e,
+                    style: Get.textTheme.headlineSmall!.copyWith(color: Colors.white),
+                  ),
+                ),
+              );
+            }),
           ),
         );
       }).toList(),
     );
   }
-
 }

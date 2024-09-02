@@ -25,25 +25,29 @@ class GameBoard extends StatelessWidget {
                 case 2:
                   color = Colors.amber.shade400;
                   break;
+                  case 3:
+                  color = Colors.grey.shade700;
+                  break;
                 default:
-                  color = Colors.grey.shade800;
+                  color = Colors.blueGrey.shade300;
               }
 
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(16.0),
+
                 width: 64.0,
                 height: 64.0,
                 margin: const EdgeInsets.symmetric(
-                    vertical: 8.0, horizontal: 4.0),
+                    vertical: 6.0, horizontal: 6.0),
                 decoration: BoxDecoration(
+
                   borderRadius: BorderRadius.circular(10.0),
                   color: color,
                 ),
                 child: Center(
                   child: Text(
                     letter.letter ?? '',
-                    style: Get.textTheme.headlineSmall!.copyWith(
+                    style: Get.textTheme.headlineLarge!.copyWith(
                       color: Colors.white,
                     ),
                   ),

@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wordle/Features/Game/game_view.dart';
-import 'package:wordle/Features/Game/game_viewmodel.dart';
 import 'package:wordle/Features/Menu/menu_viewmodel.dart';
+
+import 'Settings/menu_setting_view.dart';
 
 
 class MenuView extends GetView<MenuViewmodel> {
@@ -51,7 +52,7 @@ class MenuView extends GetView<MenuViewmodel> {
               onTap: () {
                 // Reset game state
 
-                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 1));
+                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
               },
             ),
             const SizedBox(height: 20),
@@ -59,9 +60,6 @@ class MenuView extends GetView<MenuViewmodel> {
               title: 'Online PvP',
               isShaking: controller.isOnlinePvPShaking,
               onTap: () {
-                // Placeholder for Online PvP functionality
-                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
-
               },
             ),
             const SizedBox(height: 20),
@@ -69,7 +67,7 @@ class MenuView extends GetView<MenuViewmodel> {
               title: 'Settings',
               isShaking: controller.isSettingsShaking,
               onTap: () {
-                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+                Get.to(const MenuSettingView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
 
                 // Placeholder for Settings functionality
               },

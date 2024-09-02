@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'game_model.dart';
@@ -11,6 +14,7 @@ class GameViewModel extends GetxController {
   var worddleBoard = <List<Letter>>[].obs;
   var currentRow = 0.obs;
   var currentLetter = 0.obs;
+  var letterColors = <String, Color>{}.obs;  // مپ برای ذخیره رنگ هر حرف
 
   @override
   void onInit() {
@@ -52,14 +56,15 @@ class GameViewModel extends GetxController {
         .join();
 
     if (!_game.checkWord(guess)) {
-      wordMessage.value = "the word does not exist try again";
+      wordMessage.value = 'the word does not exist try again';
       return;
     }
 
     if (guess == _game.gameGuess) {
-      wordMessage.value = "Congratulations 🎉";
+      wordMessage.value = 'Congratulations 🎉';
       for (var letter in _game.worddleBoard[currentRow.value]) {
         letter.code = 1;
+        letterColors[letter.letter!] = Colors.green; // به‌روزرسانی رنگ حرف
       }
       worddleBoard.refresh();
       return;
@@ -69,13 +74,20 @@ class GameViewModel extends GetxController {
         if (_game.gameGuess.contains(char)) {
           if (_game.gameGuess[i] == char) {
             _game.worddleBoard[currentRow.value][i].code = 1;
+            letterColors[char] = Colors.green; // رنگ سبز برای حرف صحیح در جای صحیح
           } else {
             _game.worddleBoard[currentRow.value][i].code = 2;
+            letterColors[char] = Colors.amber.shade400; // رنگ زرد برای حرف صحیح در جای اشتباه
+          }
+        } else {
+          for (var letter in _game.worddleBoard[currentRow.value]) {
+            letter.code = 3;
+            letterColors[letter.letter!] = Colors.grey.shade700; // به‌روزرسانی رنگ حرف
           }
         }
       }
       worddleBoard.refresh();
-      wordMessage.value = "";
+      wordMessage.value = '';
       currentRow.value++;
       currentLetter.value = 0;
     }
@@ -96,5 +108,7 @@ class GameViewModel extends GetxController {
     wordMessage.value = '';
     currentRow.value = 0;
     currentLetter.value = 0;
+    letterColors.clear(); // پاک کردن وضعیت رنگ‌ها برای شروع بازی جدید
   }
 }
+
