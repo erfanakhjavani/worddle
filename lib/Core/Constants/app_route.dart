@@ -1,8 +1,8 @@
 
 import 'package:get/get.dart';
-import 'package:wordle/View/splash_view.dart';
+import 'package:wordle/Features/Splash/splash_view.dart';
 
-import '../../View/menu_view.dart';
+import '../../Features/Menu/menu_view.dart';
 
 class AppRoute{
   static const String menuView = '/MenuView';

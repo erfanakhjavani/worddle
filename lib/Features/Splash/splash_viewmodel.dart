@@ -1,8 +1,8 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
-import 'package:wordle/View/menu_view.dart';
-import '../Core/Repositories/check_connectivity.dart';
-import '../Model/splash_model.dart';
+import 'package:wordle/Features/Menu/menu_view.dart';
+import '../../Core/Repositories/check_connectivity.dart';
+import 'splash_model.dart';
 
 
 class SplashViewmodel extends GetxController {

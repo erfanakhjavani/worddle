@@ -1,8 +1,8 @@
 
 import 'package:get/get.dart';
-import 'package:wordle/ViewModel/game_viewmodel.dart';
-import 'package:wordle/ViewModel/menu_viewmodel.dart';
-import 'package:wordle/ViewModel/splash_viewmodel.dart';
+import 'package:wordle/Features/Game/game_viewmodel.dart';
+import 'package:wordle/Features/Menu/menu_viewmodel.dart';
+import 'package:wordle/Features/Splash/splash_viewmodel.dart';
 
 class Binding extends Bindings{
   @override

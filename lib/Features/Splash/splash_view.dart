@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../Model/splash_model.dart';
-import '../ViewModel/splash_viewmodel.dart';
+import 'splash_model.dart';
+import 'splash_viewmodel.dart';
 
 
 

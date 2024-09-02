@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
-import 'package:wordle/View/splash_view.dart';
+import 'package:wordle/Features/Splash/splash_view.dart';
 import 'Core/Bindings/bindings.dart';
 import 'Core/Constants/app_route.dart';
 import 'Core/Themes/themes.dart';
-import 'View/GameView/game_view.dart';
+import 'Features/Game/game_view.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
