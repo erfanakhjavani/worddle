@@ -52,12 +52,12 @@ class GameViewModel extends GetxController {
         .join();
 
     if (!_game.checkWord(guess)) {
-      wordMessage.value = "کلمه وارد شده وجود ندارد. دوباره تلاش کنید.";
+      wordMessage.value = "the word does not exist try again";
       return;
     }
 
     if (guess == _game.gameGuess) {
-      wordMessage.value = "تبریک! 🎉";
+      wordMessage.value = "Congratulations 🎉";
       for (var letter in _game.worddleBoard[currentRow.value]) {
         letter.code = 1;
       }
@@ -82,7 +82,7 @@ class GameViewModel extends GetxController {
 
     // بررسی پایان بازی
     if (currentRow.value >= 5) {
-      wordMessage.value = "بازی تمام شد! کلمه صحیح: ${_game.gameGuess}";
+      wordMessage.value = 'Game over! Correct word:${_game.gameGuess}';
     }
   }
 

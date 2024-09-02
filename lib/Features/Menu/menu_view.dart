@@ -8,7 +8,6 @@ import 'package:wordle/Features/Game/game_view.dart';
 import 'package:wordle/Features/Game/game_viewmodel.dart';
 import 'package:wordle/Features/Menu/menu_viewmodel.dart';
 
-import '../../game/game.dart';
 
 class MenuView extends GetView<MenuViewmodel> {
   const MenuView({super.key});
@@ -52,7 +51,7 @@ class MenuView extends GetView<MenuViewmodel> {
               onTap: () {
                 // Reset game state
 
-                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(microseconds: 1500));
               },
             ),
             const SizedBox(height: 20),
@@ -60,8 +59,6 @@ class MenuView extends GetView<MenuViewmodel> {
               title: 'Online PvP',
               isShaking: controller.isOnlinePvPShaking,
               onTap: () {
-                final game = Get.put(GameViewModel());
-                game.resetGame();
                 // Placeholder for Online PvP functionality
                 Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
 
@@ -72,6 +69,8 @@ class MenuView extends GetView<MenuViewmodel> {
               title: 'Settings',
               isShaking: controller.isSettingsShaking,
               onTap: () {
+                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+
                 // Placeholder for Settings functionality
               },
             ),
