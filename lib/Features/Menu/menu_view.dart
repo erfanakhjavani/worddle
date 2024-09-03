@@ -67,7 +67,7 @@ class MenuView extends GetView<MenuViewmodel> {
               title: 'Settings',
               isShaking: controller.isSettingsShaking,
               onTap: () {
-                Get.to(const MenuSettingView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+                Get.to(const MenuSettingView(), transition: Transition.rightToLeft, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
 
                 // Placeholder for Settings functionality
               },

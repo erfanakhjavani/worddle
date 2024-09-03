@@ -12,7 +12,9 @@ class WorddleGame {
     'ROBOT'
   ];
 
-
+  WorddleGame() {
+    initGame();
+  }
 
   void initGame() {
     final random = Random();

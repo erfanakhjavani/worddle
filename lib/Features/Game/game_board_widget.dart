@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'game_viewmodel.dart';
 
 
+import 'package:flutter_animate/flutter_animate.dart'; // اضافه کردن این ایمپورت
+
 class GameBoard extends StatelessWidget {
   GameBoard({super.key});
 
@@ -25,7 +27,7 @@ class GameBoard extends StatelessWidget {
                 case 2:
                   color = Colors.amber.shade400;
                   break;
-                  case 3:
+                case 3:
                   color = Colors.grey.shade700;
                   break;
                 default:
@@ -34,13 +36,10 @@ class GameBoard extends StatelessWidget {
 
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-
                 width: 64.0,
                 height: 64.0,
-                margin: const EdgeInsets.symmetric(
-                    vertical: 6.0, horizontal: 6.0),
+                margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
                 decoration: BoxDecoration(
-
                   borderRadius: BorderRadius.circular(10.0),
                   color: color,
                 ),
@@ -52,7 +51,8 @@ class GameBoard extends StatelessWidget {
                     ),
                   ),
                 ),
-              );
+              ).animate()
+                  .flipH(duration: 1000.ms); // اجرای انیمیشن فلیپ
             }).toList(),
           );
         }).toList(),
@@ -60,4 +60,5 @@ class GameBoard extends StatelessWidget {
     });
   }
 }
+
 
