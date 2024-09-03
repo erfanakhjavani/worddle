@@ -17,8 +17,8 @@ class SplashViewmodel extends GetxController {
 
   @override
   void dispose() {
-    checkConnection();
     super.dispose();
+    checkConnection();
   }
 
   Future<void> checkConnection()  async {

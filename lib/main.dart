@@ -24,7 +24,7 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   GetMaterialApp(
+    return  GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: AppRoute.pages,
       initialBinding: Binding(),
