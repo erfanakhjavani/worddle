@@ -6,31 +6,42 @@ import 'package:flutter/services.dart';
 class WorddleGame {
   String gameMessage = '';
   String gameGuess = '';
-  late List<String> wordList; // حذف لیست پیش‌فرض و استفاده از late
+  late List<String> wordList;
+  final int wordLength;
+  final int maxChances;
 
-  WorddleGame() {
+  WorddleGame({required this.wordLength, required this.maxChances}) {
     initGame();
   }
 
   Future<void> initGame() async {
-    Set<String> dictionary = await generateDictionary();
-    wordList = dictionary.toList();
+    Set<String> dictionary = await generateDictionary(wordLength: wordLength);
+    wordList = dictionary.where((word) => word.length == wordLength).toList();
+
+    // بررسی اینکه wordList خالی نباشد
+    if (wordList.isEmpty) {
+      throw Exception('No words found with length $wordLength');
+    }
 
     final random = Random();
-    int index = random.nextInt(wordList.length);
+    int index = random.nextInt(wordList.length); // اکنون مطمئن هستیم که wordList خالی نیست
     gameGuess = wordList[index];
-
   }
 
   bool checkWord(String word) {
     return wordList.contains(word);
   }
 
-  List<Letter> worddleRow = List.generate(5, (index) => Letter('', 0));
-  List<List<Letter>> worddleBoard = List.generate(
-    5,
-        (index) => List.generate(5, (index) => Letter('', 0)),
-  );
+  List<Letter> worddleRow = [];
+  late List<List<Letter>> worddleBoard;
+
+  void setupBoard() {
+    worddleRow = List.generate(wordLength, (index) => Letter('', 0));
+    worddleBoard = List.generate(
+      maxChances,
+          (index) => List.generate(wordLength, (index) => Letter('', 0)),
+    );
+  }
 
   void insertWord(int index, Letter letter, int rowId) {
     worddleBoard[rowId][index] = letter;
@@ -39,6 +50,7 @@ class WorddleGame {
   int rowId = 0;
   int letterID = 0;
 }
+
 class Letter {
   String? letter;
   int code = 0;
@@ -48,16 +60,23 @@ class Letter {
 
 
 
-Future<Set<String>> generateDictionary() async {
-  String dicContents = await rootBundle.loadString("assets/All.txt");
-  Set<String> database = {};
+Future<Set<String>> generateDictionary({required int wordLength}) async {
+  try {
+    // بارگیری محتوای فایل دیکشنری
+    String dicContents = await rootBundle.loadString("assets/All.txt");
+    Set<String> database = {};
 
-  // اضافه کردن فقط کلمات پنج حرفی به دیکشنری
-  LineSplitter.split(dicContents).forEach((line) {
-    if (line.trim().length == 5) {
-      database.add(line.trim().toUpperCase());
-    }
-  });
+    // تقسیم محتوا به خطوط و افزودن کلمات با طول مشخص به دیکشنری
+    LineSplitter.split(dicContents).forEach((line) {
+      String word = line.trim().toUpperCase();
+      if (word.length == wordLength) {
+        database.add(word);
+      }
+    });
 
-  return database;
+    return database;
+  } catch (e) {
+    // مدیریت خطا
+    throw Exception('Failed to load dictionary: $e');
+  }
 }

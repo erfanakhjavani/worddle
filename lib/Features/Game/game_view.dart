@@ -18,7 +18,6 @@ class GameView extends GetView<GameViewModel> {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: (){
-            controller.resetGame();
           }, icon: const Icon(Icons.settings_backup_restore_sharp))
         ],
       ),
@@ -26,17 +25,11 @@ class GameView extends GetView<GameViewModel> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // عنوان بازی
-          Text(
-            'Wordle',
-            style: Get.textTheme.headlineMedium,
-          ),
-          const SizedBox(height: 20),
-          // پیام بازی
+
           Obx(() => Text(
             controller.wordMessage.value,
             style: TextStyle(
-              color: controller.wordMessage.value.contains("Congratulations")
+              color: controller.wordMessage.value.contains('Congratulations')
                   ? Colors.green
                   : Colors.red,
               fontSize: 18,
@@ -45,9 +38,12 @@ class GameView extends GetView<GameViewModel> {
           )),
 
           // صفحه نمایش تخته بازی
-          GameBoard(),
+          Expanded(
+            flex: 2,
+              child: GameBoard()),
           // صفحه کلید بازی
           Expanded(
+            flex: 1,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(3, 50, 3, 15),
                 child: GameKeyboard(),
