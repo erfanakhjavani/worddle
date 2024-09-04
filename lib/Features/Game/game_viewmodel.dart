@@ -6,6 +6,7 @@ import 'game_model.dart';
 class GameViewModel extends GetxController {
   late final WorddleGame game;
 
+
   var wordMessage = ''.obs;
   var worddleBoard = <List<Letter>>[].obs;
   var currentRow = 0.obs;
@@ -13,10 +14,7 @@ class GameViewModel extends GetxController {
   var letterColors = <String, Color>{}.obs;
   var isGameOver = false.obs;
 
-  GameViewModel(int wordLength, int maxChances) {
-    game = WorddleGame(wordLength: wordLength, maxChances: maxChances);
 
-  }
 
   @override
   void onInit() async {
@@ -36,7 +34,7 @@ class GameViewModel extends GetxController {
   void dispose() async{
     super.dispose();
     await game.initGame();
-    game.setupBoard(); // تنظیم جدول بازی
+    game.setupBoard();
     worddleBoard.value = game.worddleBoard;
     wordMessage.value = game.gameMessage;
   }
@@ -67,13 +65,12 @@ class GameViewModel extends GetxController {
 
   void submitGuess() async {
     wordMessage.value = '';
-    // اگر بازی تمام شده یا کلمه کامل نشده باشد یا ردیف پر شده باشد، تابع خروج می‌کند
     if (isGameOver.value || currentLetter.value < game.wordLength || currentRow.value >= game.maxChances) return;
 
-    // استخراج کلمه‌ی حدس زده شده
+
     String guess = game.worddleBoard[currentRow.value].map((e) => e.letter).join();
 
-    // بررسی وجود کلمه در لیست کلمات معتبر
+
     if (!game.checkWord(guess)) {
       wordMessage.value = 'the word does not exist try again';
       return;
@@ -81,14 +78,13 @@ class GameViewModel extends GetxController {
 
     // انیمیشن فلیپ برای هر حرف در ردیف
     for (int i = 0; i < game.wordLength; i++) {
-      await animateLetter(i);  // اجرای انیمیشن فلیپ برای هر حرف
-      checkLetter(i, guess);   // بررسی وضعیت حرف پس از انیمیشن
+      await animateLetter(i);
+      checkLetter(i, guess);
     }
 
     // تازه‌سازی جدول بازی
     worddleBoard.refresh();
 
-    // بررسی اینکه آیا کلمه به درستی حدس زده شده یا بازی به پایان رسیده است
     if (guess == game.gameGuess) {
       wordMessage.value = 'Congratulations 🎉';
       isGameOver.value = true;
@@ -98,13 +94,11 @@ class GameViewModel extends GetxController {
 
     }
 
-    // انتقال به ردیف بعدی و بازنشانی شماره حروف
     currentRow.value++;
     currentLetter.value = 0;
   }
 
   Future<void> animateLetter(int index) async {
-    // تنظیم وضعیت انیمیشن برای حرف فعلی
     game.worddleBoard[currentRow.value][index].code = -1;
     worddleBoard.refresh();
 

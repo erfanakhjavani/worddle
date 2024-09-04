@@ -60,7 +60,7 @@ class SplashView extends GetView<SplashViewmodel> {
                   }
                     return Padding(
                       padding: EdgeInsets.only(left: width / 8),
-                      child: LoadingAnimationWidget.inkDrop(color: Get.theme.primaryColor, size: 20),
+                      child: LoadingAnimationWidget.newtonCradle(color: Get.theme.primaryColor, size: 100),
                     );
                 }),
 

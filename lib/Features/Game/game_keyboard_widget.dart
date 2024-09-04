@@ -29,7 +29,7 @@ class GameKeyboard extends StatelessWidget {
     return Row(
       children: row.map((e) {
         return Expanded(
-          flex: (e == 'DEL' || e == 'DO') ? 2 : 1, // افزایش سایز کلیدهای "DEL" و "DO"
+          flex: (e == 'DEL' || e == 'DO') ? 2 : 1,
           child: InkWell(
             onTap: () {
               if (e == 'DEL') {

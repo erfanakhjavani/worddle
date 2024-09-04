@@ -18,13 +18,13 @@ class WorddleGame {
     Set<String> dictionary = await generateDictionary(wordLength: wordLength);
     wordList = dictionary.where((word) => word.length == wordLength).toList();
 
-    // بررسی اینکه wordList خالی نباشد
+
     if (wordList.isEmpty) {
       throw Exception('No words found with length $wordLength');
     }
 
     final random = Random();
-    int index = random.nextInt(wordList.length); // اکنون مطمئن هستیم که wordList خالی نیست
+    int index = random.nextInt(wordList.length);
     gameGuess = wordList[index];
   }
 

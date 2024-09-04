@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ThemeService extends GetxService {
+class ThemeService extends GetxController {
   final _themeMode = ThemeMode.system.obs;
 
   ThemeMode get theme => _themeMode.value;

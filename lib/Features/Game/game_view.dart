@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wordle/Features/Game/game_model.dart';
 
 import 'game_board_widget.dart';
 import 'game_keyboard_widget.dart';
@@ -23,33 +24,33 @@ class GameView extends GetView<GameViewModel> {
       ),
 
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
 
-          Obx(() => Text(
-            controller.wordMessage.value,
-            style: TextStyle(
-              color: controller.wordMessage.value.contains('Congratulations')
-                  ? Colors.green
-                  : Colors.red,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          )),
-
-          // صفحه نمایش تخته بازی
-          Expanded(
-            flex: 2,
-              child: GameBoard()),
-          // صفحه کلید بازی
-          Expanded(
-            flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(3, 50, 3, 15),
-                child: GameKeyboard(),
+              Obx(() => Text(
+                controller.wordMessage.value,
+                style: TextStyle(
+                  color: controller.wordMessage.value.contains('Congratulations')
+                      ? Colors.green
+                      : Colors.red,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               )),
-        ],
-      ),
+
+              Expanded(
+                  flex: 2,
+                  child: GameBoard()),
+
+              Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 50, 3, 15),
+                    child: GameKeyboard(),
+                  )),
+            ],
+          )
+
     );
   }
 }

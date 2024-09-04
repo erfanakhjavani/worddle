@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wordle/Features/Game/game_view.dart';
+import 'package:wordle/Core/Constants/app_colors.dart';
+import 'package:wordle/Core/Themes/theme_service.dart';
+import 'package:wordle/Features/Menu/Play/menu_play_view.dart';
 import 'package:wordle/Features/Menu/menu_viewmodel.dart';
 
 import 'Settings/menu_setting_view.dart';
@@ -24,16 +24,17 @@ class MenuView extends GetView<MenuViewmodel> {
             alignment: Alignment.center,
             children: [
               // متن خوش‌آمدگویی
-              Positioned(
+              GetBuilder<ThemeService>(builder: (c)=>  Positioned(
                 top: 80,
                 child: Text(
                   'Welcome to Raviar is',
-                  style: Get.textTheme.headlineMedium?.copyWith(
+                  style: Get.textTheme.headlineLarge?.copyWith(
+                    color: c.isDarkMode() ? AppColors.primary : AppColors.secondary,
                     fontFamily: 'Debug',
                     fontWeight: FontWeight.w100,
                   ),
                 ),
-              ),
+              ),),
               // انیمیشن Lottie
               Lottie.asset(
                 'assets/json/worddle.json',
@@ -51,7 +52,7 @@ class MenuView extends GetView<MenuViewmodel> {
             onTap: () {
               // Reset game state
 
-              Get.to( GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+              Get.to( const MenuPlayView(), transition: Transition.rightToLeft, curve: Curves.linearToEaseOut, duration: const Duration(seconds: 1));
             },
           ),
           const SizedBox(height: 20),
@@ -66,7 +67,7 @@ class MenuView extends GetView<MenuViewmodel> {
             title: 'Settings',
             isShaking: controller.isSettingsShaking,
             onTap: () {
-              Get.to(const MenuSettingView(), transition: Transition.rightToLeft, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+              Get.to(const MenuSettingView(), transition: Transition.rightToLeft, curve: Curves.bounceInOut, duration: 500.ms);
 
               // Placeholder for Settings functionality
             },
@@ -85,12 +86,12 @@ class MenuView extends GetView<MenuViewmodel> {
         onTap();
         print('$title selected'); // اجرای دستور هنگام کلیک
       },
-      child: Obx(() {
+      child: GetBuilder<ThemeService>(builder: (c) {
         return Text(
           title,
           style: Get.textTheme.headlineLarge?.copyWith(
             fontFamily: 'Debug',
-            color: Colors.black,
+            color: c.isDarkMode() ? Colors.white : Colors.black,
             fontWeight: FontWeight.w500,
           ),
         ).animate(

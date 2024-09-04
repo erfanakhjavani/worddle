@@ -39,7 +39,7 @@ class GameBoard extends GetView<GameViewModel> {
                     : [],
                 child: AnimatedContainer(
                   duration: 600.ms,
-                  width: width / (controller.game.wordLength + 3), // تنظیم عرض با توجه به طول کلمه
+                  width: width / (controller.game.wordLength + 3),
                   height: height / (controller.game.wordLength + 13),
                   margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
                   decoration: BoxDecoration(

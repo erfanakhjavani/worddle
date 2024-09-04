@@ -10,6 +10,7 @@ class Themes {
       backgroundColor:  Colors.transparent,
       iconTheme: IconThemeData(color: AppColors.secondary,),
     ),
+    iconTheme: const IconThemeData(color: AppColors.secondary,),
     textTheme:  TextTheme(
         labelLarge:
         Get.textTheme.labelLarge?.copyWith(fontSize: 12,fontWeight: FontWeight.w400,color: AppColors.secondary),
@@ -24,11 +25,11 @@ class Themes {
         bodyLarge:
         Get.textTheme.bodyLarge?.copyWith(fontSize: 18,fontWeight: FontWeight.w500,color: AppColors.secondary),
         headlineSmall:
-        Get.textTheme.headlineSmall?.copyWith(fontSize: 20,fontWeight: FontWeight.w600,color: AppColors.secondary),
+        Get.textTheme.headlineSmall?.copyWith(fontSize: 20,fontWeight: FontWeight.w500,color: AppColors.secondary),
         headlineMedium:
-        Get.textTheme.headlineMedium?.copyWith(fontSize: 30,fontWeight: FontWeight.w600,color: AppColors.secondary),
+        Get.textTheme.headlineMedium?.copyWith(fontSize: 30,fontWeight: FontWeight.w500,color: AppColors.secondary),
         headlineLarge:
-        Get.textTheme.headlineLarge?.copyWith(fontSize: 40,fontWeight: FontWeight.w600,color: AppColors.secondary)),
+        Get.textTheme.headlineLarge?.copyWith(fontSize: 40,fontWeight: FontWeight.w500,color: AppColors.secondary)),
 
     );
 
@@ -39,6 +40,7 @@ class Themes {
       backgroundColor: Colors.transparent,
       iconTheme: IconThemeData(color: AppColors.primary),
     ),
+    iconTheme: const IconThemeData(color: AppColors.primary),
     textTheme:  TextTheme(
         labelLarge:
         Get.textTheme.labelLarge?.copyWith(fontSize: 12,fontWeight: FontWeight.w400,color: AppColors.primary),
