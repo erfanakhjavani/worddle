@@ -9,7 +9,7 @@ class Binding extends Bindings{
   void dependencies() {
     Get.lazyPut(()=> SplashViewmodel());
     Get.lazyPut(()=> MenuViewmodel());
-    Get.lazyPut(()=> GameViewModel());
+    Get.put(GameViewModel());
   }
 
 }

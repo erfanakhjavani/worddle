@@ -16,65 +16,63 @@ class MenuView extends GetView<MenuViewmodel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 100),
-            // خوش‌آمدگویی و انیمیشن Lottie
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                // متن خوش‌آمدگویی
-                Positioned(
-                  top: 80,
-                  child: Text(
-                    'Welcome to Raviar is',
-                    style: Get.textTheme.headlineMedium?.copyWith(
-                      fontFamily: 'Debug',
-                      fontWeight: FontWeight.w100,
-                    ),
+      body: Column(
+        children: [
+          const SizedBox(height: 100),
+          // خوش‌آمدگویی و انیمیشن Lottie
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              // متن خوش‌آمدگویی
+              Positioned(
+                top: 80,
+                child: Text(
+                  'Welcome to Raviar is',
+                  style: Get.textTheme.headlineMedium?.copyWith(
+                    fontFamily: 'Debug',
+                    fontWeight: FontWeight.w100,
                   ),
                 ),
-                // انیمیشن Lottie
-                Lottie.asset(
-                  'assets/json/worddle.json',
-                  height: 300,
-                  width: double.infinity,
-                  reverse: true,
-                  alignment: Alignment.center,
-                ),
-              ],
-            ),
-            // گزینه‌های منو
-            _buildMenuItem(
-              title: 'Play',
-              isShaking: controller.isPlayShaking,
-              onTap: () {
-                // Reset game state
+              ),
+              // انیمیشن Lottie
+              Lottie.asset(
+                'assets/json/worddle.json',
+                height: 300,
+                width: double.infinity,
+                reverse: true,
+                alignment: Alignment.center,
+              ),
+            ],
+          ),
+          // گزینه‌های منو
+          _buildMenuItem(
+            title: 'Play',
+            isShaking: controller.isPlayShaking,
+            onTap: () {
+              // Reset game state
 
-                Get.to( GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
-              },
-            ),
-            const SizedBox(height: 20),
-            _buildMenuItem(
-              title: 'Online PvP',
-              isShaking: controller.isOnlinePvPShaking,
-              onTap: () {
-              },
-            ),
-            const SizedBox(height: 20),
-            _buildMenuItem(
-              title: 'Settings',
-              isShaking: controller.isSettingsShaking,
-              onTap: () {
-                Get.to(const MenuSettingView(), transition: Transition.rightToLeft, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+              Get.to( GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+            },
+          ),
+          const SizedBox(height: 20),
+          _buildMenuItem(
+            title: 'Online PvP',
+            isShaking: controller.isOnlinePvPShaking,
+            onTap: () {
+            },
+          ),
+          const SizedBox(height: 20),
+          _buildMenuItem(
+            title: 'Settings',
+            isShaking: controller.isSettingsShaking,
+            onTap: () {
+              Get.to(const MenuSettingView(), transition: Transition.rightToLeft, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
 
-                // Placeholder for Settings functionality
-              },
-            ),
+              // Placeholder for Settings functionality
+            },
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
   }
