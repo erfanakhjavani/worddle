@@ -4,41 +4,45 @@ import 'package:get/get.dart';
 import 'game_model.dart';
 
 class GameViewModel extends GetxController {
-  late final WorddleGame game;
-
+  late WorddleGame game;
 
   var wordMessage = ''.obs;
   var worddleBoard = <List<Letter>>[].obs;
   var currentRow = 0.obs;
   var currentLetter = 0.obs;
-  var letterColors = <String, Color>{}.obs;
+  var letterColors = <String, Color>{}.obs; // رنگ حروف کیبورد
   var isGameOver = false.obs;
 
+  Future<void> initializeGame(int wordLength, int maxChances) async {
+    game = WorddleGame(wordLength: wordLength, maxChances: maxChances);
 
-
-  @override
-  void onInit() async {
-    super.onInit();
     try {
       await game.initGame();
       game.setupBoard();
       worddleBoard.value = game.worddleBoard;
       wordMessage.value = game.gameMessage;
-      print(game.gameGuess);
+      isGameOver.value = false; // ریست کردن وضعیت بازی.
+      print('worddle is:  ${game.gameGuess}');
     } catch (e) {
       wordMessage.value = 'Error initializing game: ${e.toString()}';
     }
   }
 
-  @override
-  void dispose() async{
-    super.dispose();
-    await game.initGame();
-    game.setupBoard();
-    worddleBoard.value = game.worddleBoard;
-    wordMessage.value = game.gameMessage;
-  }
+  // متد ریست بازی
+  void resetGame() async {
+    await initializeGame(game.wordLength, game.maxChances);
 
+
+
+    // ریست کردن کیبورد و جدول بازی
+    currentRow.value = 0;
+    currentLetter.value = 0;
+
+    // ریست کردن رنگ‌های کیبورد
+    letterColors.clear(); // خالی کردن رنگ‌های قبلی
+
+    worddleBoard.refresh(); // به روز رسانی جدول بازی
+  }
   void insertLetter(String letter) {
     if (!isGameOver.value && currentLetter.value < game.wordLength  && currentRow.value < game.wordLength + 1) {
       game.insertWord(

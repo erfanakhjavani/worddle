@@ -5,6 +5,9 @@ class MenuPlayViewModel extends GetxController {
   RxInt wordLength = 4.obs;
   RxInt maxAttempts = 4.obs;
 
+  var isPlayShaking = false.obs;
+
+
   // افزایش و کاهش طول کلمه با محدودیت
   void increaseWordLength() {
     if (wordLength.value < 8) {
@@ -30,4 +33,17 @@ class MenuPlayViewModel extends GetxController {
       maxAttempts.value--;
     }
   }
+
+
+  void startShaking(String menuItem) {
+        isPlayShaking.value = true;
+
+    // توقف لرزش بعد از مدت زمان کوتاه
+    Future.delayed(const Duration(milliseconds: 100), () {
+      isPlayShaking.value = false;
+    });
+  }
+
+
+
 }

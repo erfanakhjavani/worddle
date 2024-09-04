@@ -39,9 +39,9 @@ class GameBoard extends GetView<GameViewModel> {
                     : [],
                 child: AnimatedContainer(
                   duration: 600.ms,
-                  width: width / (controller.game.wordLength + 3),
-                  height: height / (controller.game.wordLength + 13),
-                  margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+                  width: width / (controller.game.wordLength + 3.3),
+                  height: height / (controller.game.wordLength + 12.8),
+                  margin:  EdgeInsets.symmetric(vertical: width * 0.01, horizontal: height * 0.005),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     color: color,

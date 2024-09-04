@@ -19,6 +19,7 @@ class GameView extends GetView<GameViewModel> {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: (){
+            controller.resetGame();
           }, icon: const Icon(Icons.settings_backup_restore_sharp))
         ],
       ),
@@ -43,7 +44,7 @@ class GameView extends GetView<GameViewModel> {
                   child: GameBoard()),
 
               Expanded(
-                  flex: 1,
+                  flex: 0,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(3, 50, 3, 15),
                     child: GameKeyboard(),

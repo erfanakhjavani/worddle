@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Core/Constants/app_colors.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
@@ -92,8 +93,14 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
               ),
               backgroundColor: Get.theme.primaryColor,
             ),
-            onPressed: () {
-              Get.to(const GameView());
+            onPressed: () async {
+              final gameViewModel = Get.find<GameViewModel>();
+              await gameViewModel.initializeGame(controller.wordLength.value, controller.maxAttempts.value,
+              ).then((value){
+                gameViewModel.resetGame();
+              }).then((value){
+                Get.to(() => const GameView(),transition: Transition.downToUp,curve: Curves.bounceInOut,duration: 600.ms);
+              });
             },
             child: Text(
               'Start',
