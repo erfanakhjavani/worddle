@@ -11,16 +11,16 @@ class GameViewModel extends GetxController {
   var currentRow = 0.obs;
   var currentLetter = 0.obs;
   var letterColors = <String, Color>{}.obs;
-  var isGameOver = false.obs; // New variable to track the game state
+  var isGameOver = false.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await _game.initGame(); // انتظار برای بارگذاری دیکشنری
     worddleBoard.value = _game.worddleBoard;
     wordMessage.value = _game.gameMessage;
-    print(_game.gameGuess);
+    print('worddle is : ${_game.gameGuess}');
   }
-
   @override
   void dispose() {
     super.dispose();
@@ -117,7 +117,6 @@ class GameViewModel extends GetxController {
 
   void resetGame() {
     _game.initGame();
-    print(_game.gameGuess);
     _game.worddleBoard = List.generate(
       5,
           (index) => List.generate(5, (index) => Letter('', 0)),
@@ -128,6 +127,7 @@ class GameViewModel extends GetxController {
     currentLetter.value = 0;
     letterColors.clear();
     isGameOver.value = false; // Reset the game state
+
   }
 }
 
