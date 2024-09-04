@@ -52,7 +52,7 @@ class MenuView extends GetView<MenuViewmodel> {
               onTap: () {
                 // Reset game state
 
-                Get.to(const GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
+                Get.to( GameView(), transition: Transition.downToUp, curve: Curves.bounceInOut, duration: const Duration(seconds: 2));
               },
             ),
             const SizedBox(height: 20),

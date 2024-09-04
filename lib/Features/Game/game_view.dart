@@ -15,7 +15,13 @@ class GameView extends StatelessWidget {
     final GameViewModel viewModel = Get.put(GameViewModel());
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            viewModel.resetGame();
+          }, icon: Icon(Icons.settings_backup_restore_sharp))
+        ],
+      ),
 
       body: Center(
         child: Column(

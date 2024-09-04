@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-import 'game_viewmodel.dart';
+import 'game_viewmodel.dart'; // ایمپورت پکیج انیمیشن
 
-
-import 'package:flutter_animate/flutter_animate.dart'; // اضافه کردن این ایمپورت
-
-class GameBoard extends StatelessWidget {
+class GameBoard extends GetView<GameViewModel> {
   GameBoard({super.key});
 
-  final GameViewModel viewModel = Get.find<GameViewModel>();
+
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Column(
-        children: viewModel.worddleBoard.map((row) {
+        children: controller.worddleBoard.map((row) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: row.map((letter) {
@@ -34,25 +32,30 @@ class GameBoard extends StatelessWidget {
                   color = Colors.blueGrey.shade300;
               }
 
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                width: 64.0,
-                height: 64.0,
-                margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: color,
-                ),
-                child: Center(
-                  child: Text(
-                    letter.letter ?? '',
-                    style: Get.textTheme.headlineLarge!.copyWith(
-                      color: Colors.white,
+              return Animate(
+                // اگر کد -1 باشد، انیمیشن فلیپ اجرا می‌شود
+                effects: letter.code == -1
+                    ? [ShimmerEffect(duration: 600.ms,)]
+                    : [],
+                child: AnimatedContainer(
+                  duration: 600.ms,
+                  width: 64.0,
+                  height: 64.0,
+                  margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: color,
+                  ),
+                  child: Center(
+                    child: Text(
+                      letter.letter ?? '',
+                      style: Get.textTheme.headlineLarge!.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ).animate()
-                  .flipH(duration: 1000.ms); // اجرای انیمیشن فلیپ
+              );
             }).toList(),
           );
         }).toList(),
@@ -60,5 +63,3 @@ class GameBoard extends StatelessWidget {
     });
   }
 }
-
-

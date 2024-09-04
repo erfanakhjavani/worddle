@@ -18,6 +18,7 @@ class GameViewModel extends GetxController {
     super.onInit();
     worddleBoard.value = _game.worddleBoard;
     wordMessage.value = _game.gameMessage;
+    print(_game.gameGuess);
   }
 
   @override
@@ -52,38 +53,50 @@ class GameViewModel extends GetxController {
   }
 
   void submitGuess() async {
+    wordMessage.value = '';
+    // اگر بازی تمام شده یا کلمه کامل نشده باشد یا ردیف پر شده باشد، تابع خروج می‌کند
     if (isGameOver.value || currentLetter.value < 5 || currentRow.value >= 5) return;
 
+    // استخراج کلمه‌ی حدس زده شده
     String guess = _game.worddleBoard[currentRow.value].map((e) => e.letter).join();
 
+    // بررسی وجود کلمه در لیست کلمات معتبر
     if (!_game.checkWord(guess)) {
       wordMessage.value = 'the word does not exist try again';
       return;
     }
 
+    // انیمیشن فلیپ برای هر حرف در ردیف
     for (int i = 0; i < 5; i++) {
-      await animateLetterFlip(i);
-      checkLetter(i, guess);
+      await animateLetter(i);  // اجرای انیمیشن فلیپ برای هر حرف
+      checkLetter(i, guess);   // بررسی وضعیت حرف پس از انیمیشن
     }
 
+    // تازه‌سازی جدول بازی
     worddleBoard.refresh();
 
+    // بررسی اینکه آیا کلمه به درستی حدس زده شده یا بازی به پایان رسیده است
     if (guess == _game.gameGuess) {
       wordMessage.value = 'Congratulations 🎉';
-      isGameOver.value = true; // Set the game as over
+      isGameOver.value = true;
     } else if (currentRow.value >= 4) {
       wordMessage.value = 'Game over! Correct word: ${_game.gameGuess}';
-      isGameOver.value = true; // Set the game as over
+      isGameOver.value = true;
+
     }
 
+    // انتقال به ردیف بعدی و بازنشانی شماره حروف
     currentRow.value++;
     currentLetter.value = 0;
   }
 
-  Future<void> animateLetterFlip(int index) async {
+  Future<void> animateLetter(int index) async {
+    // تنظیم وضعیت انیمیشن برای حرف فعلی
     _game.worddleBoard[currentRow.value][index].code = -1;
     worddleBoard.refresh();
-    await Future.delayed(500.ms);
+
+    // تاخیر برای نمایش انیمیشن فلیپ
+    await Future.delayed(600.ms);
   }
 
   void checkLetter(int index, String guess) {
@@ -104,6 +117,7 @@ class GameViewModel extends GetxController {
 
   void resetGame() {
     _game.initGame();
+    print(_game.gameGuess);
     _game.worddleBoard = List.generate(
       5,
           (index) => List.generate(5, (index) => Letter('', 0)),
