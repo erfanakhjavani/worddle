@@ -47,7 +47,8 @@ class MenuView extends GetView<MenuViewmodel> {
           ),
           // گزینه‌های منو
           _buildMenuItem(
-            title: 'Play',
+            title: 'play_local'.tr,
+
             isShaking: controller.isPlayShaking,
             onTap: () {
               // Reset game state
@@ -57,14 +58,14 @@ class MenuView extends GetView<MenuViewmodel> {
           ),
           const SizedBox(height: 20),
           _buildMenuItem(
-            title: 'Online PvP',
+            title: 'online'.tr,
             isShaking: controller.isOnlinePvPShaking,
             onTap: () {
             },
           ),
           const SizedBox(height: 20),
           _buildMenuItem(
-            title: 'Settings',
+            title: 'settings'.tr,
             isShaking: controller.isSettingsShaking,
             onTap: () {
               Get.to(const MenuSettingView(), transition: Transition.rightToLeft, curve: Curves.bounceInOut, duration: 500.ms);

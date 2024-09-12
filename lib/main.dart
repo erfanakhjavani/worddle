@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
-import 'package:wordle/Features/Splash/splash_view.dart';
+import 'package:wordle/Core/Translations/my_translation.dart';
 import 'Core/Bindings/bindings.dart';
 import 'Core/Constants/app_route.dart';
 import 'Core/Themes/themes.dart';
-import 'Features/Game/game_view.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Get.put(ThemeService());
@@ -25,14 +25,16 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  GetMaterialApp(
+      translations: MyTranslation(),
+      locale: const Locale('fa_IR'),
+      fallbackLocale: const Locale('fa_IR'),
       debugShowCheckedModeBanner: false,
       getPages: AppRoute.pages,
       initialBinding: Binding(),
       darkTheme: Themes.dark,
       theme: Themes.light,
       themeMode: Get.find<ThemeService>().theme,
-      // initialRoute: AppRoute.splashView,
-      home: const SplashView(),
+      initialRoute: AppRoute.splashView,
     );
   }
 }

@@ -19,7 +19,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Back',
+          'back'.tr,
           style: Get.textTheme.headlineMedium?.copyWith(fontFamily: 'Debug'),
         ),
         titleSpacing: 0,
@@ -29,7 +29,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
         children: [
           // بخش طول کلمه
           Text(
-            'Word Length',
+            'word-length'.tr,
             style: Get.textTheme.bodyLarge!.copyWith(fontFamily: 'Debug', fontSize: 40),
           ),
           Row(
@@ -58,7 +58,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
           const SizedBox(height: 20),
           // بخش تعداد تلاش‌ها
           Text(
-            'Max Attempts',
+            'max-attempts'.tr,
             style: Get.textTheme.bodyLarge!.copyWith(fontFamily: 'Debug', fontSize: 40),
           ),
           Row(
@@ -103,7 +103,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
               });
             },
             child: Text(
-              'Start',
+              'start'.tr,
               style: Get.textTheme.headlineLarge?.copyWith(
                 fontSize: 50,
                 fontFamily: 'Debug',
