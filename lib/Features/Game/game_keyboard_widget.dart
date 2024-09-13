@@ -46,7 +46,7 @@ class GameKeyboard extends StatelessWidget {
     return Row(
       children: row.map((e) {
         return Expanded(
-          flex: (e == 'DEL' || e == 'DO') ? 2 : 1, // اندازه بزرگ‌تر برای دکمه‌های حذف و انجام
+          flex: (e == 'DEL' || e == 'DO') ? 3 : 2, // اندازه بزرگ‌تر برای دکمه‌های حذف و انجام
           child: InkWell(
             onTap: () {
               if (e == 'DEL') {
@@ -60,7 +60,9 @@ class GameKeyboard extends StatelessWidget {
             child: Obx(() {
               Color keyColor = viewModel.letterColors[e] ?? Colors.blueGrey.shade300;
               return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 2.0,
+                ),
                 padding: const EdgeInsets.only(top: 12, bottom: 12),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
@@ -70,10 +72,12 @@ class GameKeyboard extends StatelessWidget {
                   child: e == 'DEL'
                       ? Icon(Icons.backspace_outlined, color: Colors.white)  // آیکون حذف
                       : e == 'DO'
-                      ? Icon(Icons.check_circle, color: Colors.white)     // آیکون ثبت
+                      ? Icon(Icons.check, color: Colors.white)     // آیکون ثبت
                       : Text(
                     e,
-                    style: Get.textTheme.headlineSmall!.copyWith(color: Colors.white),
+                    style: Get.textTheme.headlineSmall!.copyWith(
+                      fontSize: 22,
+                        color: Colors.white),
                   ),
                 ),
               );
