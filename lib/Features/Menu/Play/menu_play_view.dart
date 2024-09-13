@@ -96,8 +96,9 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
             onPressed: () async {
               final gameViewModel = Get.find<GameViewModel>();
               await gameViewModel.initializeGame(controller.wordLength.value, controller.maxAttempts.value,
+                isFarsiGame: false
               ).then((value){
-                gameViewModel.resetGame();
+                gameViewModel.resetGame(isFarsi: false);
               }).then((value){
                 Get.to(() => const GameView(),transition: Transition.downToUp,curve: Curves.bounceInOut,duration: 600.ms);
               });

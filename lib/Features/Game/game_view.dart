@@ -19,7 +19,7 @@ class GameView extends GetView<GameViewModel> {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: (){
-            controller.resetGame();
+            controller.resetGame(isFarsi: true);
           }, icon: const Icon(Icons.settings_backup_restore_sharp))
         ],
       ),
@@ -39,7 +39,7 @@ class GameView extends GetView<GameViewModel> {
                 ),
               )),
 
-              Expanded(
+              const Expanded(
                   flex: 2,
                   child: GameBoard()),
 

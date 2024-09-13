@@ -2,66 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'game_viewmodel.dart'; // ایمپورت پکیج انیمیشن
+import 'game_viewmodel.dart';
 
 class GameBoard extends GetView<GameViewModel> {
-  GameBoard({super.key});
+  const GameBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.sizeOf(context).width;
     var height = MediaQuery.sizeOf(context).height;
-    return Obx(() {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: controller.worddleBoard.map((row) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: row.map((letter) {
-              Color color;
-              switch (letter.code) {
-                case 1:
-                  color = Colors.green;
-                  break;
-                case 2:
-                  color = Colors.amber.shade400;
-                  break;
-                case 3:
-                  color = Colors.grey.shade700;
-                  break;
-                default:
-                  color = Colors.blueGrey.shade300;
-              }
 
-              return Animate(
-                effects: letter.code == -1
-                    ? [ShimmerEffect(duration: 600.ms,)]
-                    : [],
-                child: AnimatedContainer(
-                  duration: 600.ms,
-                  width: width / (controller.game.wordLength + 3.3),
-                  height: height / (controller.game.wordLength + 12.8),
-                  margin:  EdgeInsets.symmetric(vertical: width * 0.01, horizontal: height * 0.005),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    color: color,
-                  ),
-                  child: Center(
-                    child: Text(
-                      letter.letter ?? '',
-                      style: Get.textTheme.headlineMedium!.copyWith(
-                        fontSize: controller.game.wordLength + 25,
-                        color: Colors.white,
+    return Obx(() {
+      return Directionality(
+        textDirection: controller.isFarsi.value ? TextDirection.rtl : TextDirection.ltr, // چک کردن زبان
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: controller.worddleBoard.map((row) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: row.map((letter) {
+                Color color;
+                switch (letter.code) {
+                  case 1:
+                    color = Colors.green;
+                    break;
+                  case 2:
+                    color = Colors.amber.shade400;
+                    break;
+                  case 3:
+                    color = Colors.grey.shade700;
+                    break;
+                  default:
+                    color = Colors.blueGrey.shade300;
+                }
+
+                return Animate(
+                  effects: letter.code == -1
+                      ? [ShimmerEffect(duration: 600.ms,)]
+                      : [],
+                  child: AnimatedContainer(
+                    duration: 600.ms,
+                    width: width / (controller.game.wordLength + 3.3),
+                    height: height / (controller.game.wordLength + 12.8),
+                    margin:  EdgeInsets.symmetric(vertical: width * 0.01, horizontal: height * 0.005),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: color,
+                    ),
+                    child: Center(
+                      child: Text(
+                        letter.letter ?? '',
+                        style: Get.textTheme.headlineMedium!.copyWith(
+                          fontSize: controller.game.wordLength + 25,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            }).toList(),
-          );
-        }).toList(),
+                );
+              }).toList(),
+            );
+          }).toList(),
+        ),
       );
     });
   }
 }
-

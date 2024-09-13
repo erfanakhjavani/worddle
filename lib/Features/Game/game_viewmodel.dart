@@ -12,25 +12,27 @@ class GameViewModel extends GetxController {
   var currentLetter = 0.obs;
   var letterColors = <String, Color>{}.obs; // رنگ حروف کیبورد
   var isGameOver = false.obs;
+  var isFarsi = false.obs; // مشخص کردن زبان فارسی
 
-  Future<void> initializeGame(int wordLength, int maxChances) async {
-    game = WorddleGame(wordLength: wordLength, maxChances: maxChances);
+  Future<void> initializeGame(int wordLength, int maxChances, {bool isFarsiGame = false}) async {
+    isFarsi.value = isFarsiGame;
+    game = WorddleGame(wordLength: wordLength, maxChances: maxChances, isFarsi: isFarsiGame);
 
     try {
       await game.initGame();
       game.setupBoard();
       worddleBoard.value = game.worddleBoard;
       wordMessage.value = game.gameMessage;
-      isGameOver.value = false; // ریست کردن وضعیت بازی.
+      isGameOver.value = false;
       print('worddle is:  ${game.gameGuess}');
     } catch (e) {
-      wordMessage.value = 'Error initializing game: ${e.toString()}';
+      wordMessage.value = 'خطا در شروع بازی: ${e.toString()}';
     }
   }
 
   // متد ریست بازی
-  void resetGame() async {
-    await initializeGame(game.wordLength, game.maxChances);
+  void resetGame({required bool isFarsi}) async {
+    await initializeGame(game.wordLength, game.maxChances,isFarsiGame: isFarsi);
 
 
 

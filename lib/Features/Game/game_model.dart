@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/services.dart';
 
 class WorddleGame {
@@ -9,18 +8,25 @@ class WorddleGame {
   late List<String> wordList;
   final int wordLength;
   final int maxChances;
+  final bool isFarsi; // افزودن پرچم برای مشخص کردن زبان فارسی
 
-  WorddleGame({required this.wordLength, required this.maxChances}) {
+  WorddleGame({required this.wordLength, required this.maxChances, this.isFarsi = false}) {
     initGame();
   }
 
   Future<void> initGame() async {
-    Set<String> dictionary = await generateDictionary(wordLength: wordLength);
-    wordList = dictionary.where((word) => word.length == wordLength).toList();
-
+    if (isFarsi) {
+      // استفاده از لیست کلمات فارسی
+      Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'farsi');
+      wordList = dictionary.where((word) => word.length == wordLength).toList();
+    } else {
+      // انگلیسی
+      Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'english');
+      wordList = dictionary.where((word) => word.length == wordLength).toList();
+    }
 
     if (wordList.isEmpty) {
-      throw Exception('No words found with length $wordLength');
+      throw Exception('هیچ کلمه‌ای با طول $wordLength پیدا نشد');
     }
 
     final random = Random();
@@ -31,7 +37,6 @@ class WorddleGame {
   bool checkWord(String word) {
     return wordList.contains(word);
   }
-
   List<Letter> worddleRow = [];
   late List<List<Letter>> worddleBoard;
 
@@ -60,10 +65,10 @@ class Letter {
 
 
 
-Future<Set<String>> generateDictionary({required int wordLength}) async {
+Future<Set<String>> generateDictionary({required int wordLength,required String lang}) async {
   try {
     // بارگیری محتوای فایل دیکشنری
-    String dicContents = await rootBundle.loadString("assets/All.txt");
+    String dicContents = await rootBundle.loadString('assets/dict/$lang.txt');
     Set<String> database = {};
 
     // تقسیم محتوا به خطوط و افزودن کلمات با طول مشخص به دیکشنری
