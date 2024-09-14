@@ -18,12 +18,19 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   var isFarsi = false.obs;
   late AnimationController lottieController;
   var helpClickCount = 0.obs; // شمارنده برای کلیک‌های دکمه کمک
+  late AnimationController popperController;
+  var isCorrectGuess = false.obs;
+
+
   Timer? timer;
 
   @override
   void onInit() {
     super.onInit();
-
+    popperController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
     // AnimationController
     lottieController = AnimationController(
       vsync: this,
@@ -41,6 +48,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   void onClose() {
     // انیمیشن و تایمر را پاکسازی می‌کنیم
     lottieController.dispose();
+    popperController.dispose();
     timer?.cancel();
     super.onClose();
   }
@@ -109,9 +117,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
     wordMessage.value = '';
     if (isGameOver.value || currentLetter.value < game.wordLength || currentRow.value >= game.maxChances) return;
 
-
     String guess = game.worddleBoard[currentRow.value].map((e) => e.letter).join();
-
 
     if (!game.checkWord(guess)) {
       wordMessage.value = 'the word does not exist try again'.tr;
@@ -130,16 +136,18 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
     if (guess == game.gameGuess) {
       wordMessage.value = 'Congratulations 🎉'.tr;
       isGameOver.value = true;
+      isCorrectGuess.value = true;
+      popperController.forward(from: 0); // اجرای انیمیشن
     } else if (currentRow.value >= game.maxChances - 1) {
       wordMessage.value = 'Game over! Correct word:'.tr;
       wordMessage.value += game.gameGuess;
       isGameOver.value = true;
-
     }
 
     currentRow.value++;
     currentLetter.value = 0;
   }
+
 
   Future<void> animateLetter(int index) async {
     game.worddleBoard[currentRow.value][index].code = -1;
