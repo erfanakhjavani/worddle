@@ -18,7 +18,9 @@ class WorddleGame {
     if (isFarsi) {
       // استفاده از لیست کلمات فارسی
       Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'farsi');
+      Set<String> dictionary2 = await generateDictionary(wordLength: wordLength,lang: 'farsi2');
       wordList = dictionary.where((word) => word.length == wordLength).toList();
+      wordList += dictionary2.where((word) => word.length == wordLength).toList();
     } else {
       // انگلیسی
       Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'english');

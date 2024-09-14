@@ -11,7 +11,6 @@ import 'Core/Themes/themes.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
-
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Get.put(ThemeService());

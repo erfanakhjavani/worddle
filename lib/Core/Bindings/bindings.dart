@@ -15,7 +15,6 @@ class Binding extends Bindings{
     Get.lazyPut(()=> SplashViewmodel());
     Get.put(MenuViewmodel());
     Get.put(MenuPlayViewModel());
-    Get.put(ThemeService());
     Get.put(GameViewModel());
     Get.put(LanguageViewmodel());
   }

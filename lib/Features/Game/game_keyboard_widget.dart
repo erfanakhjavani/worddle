@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Core/Constants/keyboard.dart';
 import 'game_viewmodel.dart';
+
 
 class GameKeyboard extends StatelessWidget {
   GameKeyboard({super.key});
@@ -9,14 +11,6 @@ class GameKeyboard extends StatelessWidget {
   final GameViewModel viewModel = Get.find<GameViewModel>();
 
   // لیست حروف انگلیسی
-  final List<String> row1English = 'QWERTYUIOP'.split('');
-  final List<String> row2English = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L','DEL'];
-  final List<String> row3English = [ 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DO'];
-
-  // لیست حروف فارسی
-  final List<String> row1Farsi =  ['ج', 'ح', 'خ', 'ه', 'ع', 'غ', 'ف', 'ق', 'ث', 'ص', 'ض'];
-  final List<String> row2Farsi =  ['DEL','گ', 'ک', 'م', 'ن', 'ت', 'ا', 'ل', 'ب', 'ی', 'س', 'ش'];
-  final List<String> row3Farsi = ['DO','چ', 'پ', 'و', 'د', 'ذ', 'ر', 'ز', 'ژ', 'ط', 'ظ',];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +47,7 @@ class GameKeyboard extends StatelessWidget {
                 viewModel.deleteLetter();
               } else if (e == 'DO') {
                 viewModel.submitGuess();
-              } else {
+              } else if (viewModel.letterColors[e] != Colors.grey.shade700) {
                 viewModel.insertLetter(e);
               }
             },
@@ -84,4 +78,5 @@ class GameKeyboard extends StatelessWidget {
     );
   }
 }
+
 
