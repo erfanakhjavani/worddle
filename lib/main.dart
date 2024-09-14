@@ -26,8 +26,8 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GetMaterialApp(
       translations: MyTranslation(),
-      locale: const Locale('fa_IR'),
-      fallbackLocale: const Locale('fa_IR'),
+      locale: const Locale('en'),
+      fallbackLocale: const Locale('en'),
       debugShowCheckedModeBanner: false,
       getPages: AppRoute.pages,
       initialBinding: Binding(),

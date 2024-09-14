@@ -87,6 +87,9 @@ flutter:
     - family: Debug
       fonts:
         - asset: assets/otf/Debug.otf
+    - family: Yekan
+      fonts:
+        - asset: assets/ttf/Yekan.ttf
 
 
   #

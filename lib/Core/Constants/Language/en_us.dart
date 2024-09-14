@@ -1,9 +1,11 @@
  Map<String, String> get enUS => {
-   'play local': 'Play Local',
+   'play_local': 'Play Local',
    'online' : 'Online',
    'settings' : 'Settings',
    'back' : 'Back',
    'word-length' : 'Word Length',
    'max-attempts' : 'Max Attempts',
    'start' : 'Start',
+   'the word does not exist try again' : 'The word does not exist try again!',
+   'Game over! Correct word:' : 'Game over! Correct word:'
  };

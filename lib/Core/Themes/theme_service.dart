@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wordle/Core/Themes/themes.dart';
 
 class ThemeService extends GetxController {
   final _themeMode = ThemeMode.system.obs;
-
   ThemeMode get theme => _themeMode.value;
+
+
+
 
   void switchTheme(ThemeMode mode) {
     _themeMode.value = mode;

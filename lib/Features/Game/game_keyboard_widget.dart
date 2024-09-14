@@ -10,8 +10,8 @@ class GameKeyboard extends StatelessWidget {
 
   // لیست حروف انگلیسی
   final List<String> row1English = 'QWERTYUIOP'.split('');
-  final List<String> row2English = 'ASDFGHJKL'.split('');
-  final List<String> row3English = ['DEL', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DO'];
+  final List<String> row2English = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L','DEL'];
+  final List<String> row3English = [ 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DO'];
 
   // لیست حروف فارسی
   final List<String> row1Farsi =  ['ج', 'ح', 'خ', 'ه', 'ع', 'غ', 'ف', 'ق', 'ث', 'ص', 'ض'];

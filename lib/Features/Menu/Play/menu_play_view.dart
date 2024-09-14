@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Core/Constants/app_colors.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
-import 'package:wordle/Features/Game/game_model.dart';
 import 'package:wordle/Features/Game/game_view.dart';
 import 'package:wordle/Features/Game/game_viewmodel.dart';
 
@@ -20,7 +19,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
       appBar: AppBar(
         title: Text(
           'back'.tr,
-          style: Get.textTheme.headlineMedium?.copyWith(fontFamily: 'Debug'),
+          style: Get.textTheme.headlineSmall
         ),
         titleSpacing: 0,
       ),
@@ -30,7 +29,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
           // بخش طول کلمه
           Text(
             'word-length'.tr,
-            style: Get.textTheme.bodyLarge!.copyWith(fontFamily: 'Debug', fontSize: 40),
+            style: Get.textTheme.bodyMedium!.copyWith( fontSize: 40),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +43,9 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
               const SizedBox(width: 10),
               Obx(() => Text(
                 '${controller.wordLength.value}',
-                style: Get.textTheme.headlineMedium,
+                style: Get.textTheme.headlineMedium!.copyWith(
+                    fontFamily: Get.locale!.languageCode == 'fa' ? 'Yekan' : ''
+                ),
               )),
               const SizedBox(width: 10),
               IconButton(
@@ -59,7 +60,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
           // بخش تعداد تلاش‌ها
           Text(
             'max-attempts'.tr,
-            style: Get.textTheme.bodyLarge!.copyWith(fontFamily: 'Debug', fontSize: 40),
+            style: Get.textTheme.bodyLarge!.copyWith( fontSize: 40),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +74,9 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
               const SizedBox(width: 10),
               Obx(() => Text(
                 '${controller.maxAttempts.value}',
-                style: Get.textTheme.headlineMedium,
+                style: Get.textTheme.headlineMedium!.copyWith(
+                  fontFamily: Get.locale!.languageCode == 'fa' ? 'Yekan' : ''
+                ),
               )),
               const SizedBox(width: 10),
               IconButton(
@@ -94,11 +97,13 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
               backgroundColor: Get.theme.primaryColor,
             ),
             onPressed: () async {
+              bool isFarsi = Get.locale?.languageCode == 'fa';
+              print(isFarsi);
               final gameViewModel = Get.find<GameViewModel>();
               await gameViewModel.initializeGame(controller.wordLength.value, controller.maxAttempts.value,
-                isFarsiGame: false
+                  isFarsiGame: isFarsi ? true : false
               ).then((value){
-                gameViewModel.resetGame(isFarsi: false);
+                gameViewModel.resetGame(isFarsi: isFarsi ? true : false);
               }).then((value){
                 Get.to(() => const GameView(),transition: Transition.downToUp,curve: Curves.bounceInOut,duration: 600.ms);
               });
@@ -107,7 +112,6 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
               'start'.tr,
               style: Get.textTheme.headlineLarge?.copyWith(
                 fontSize: 50,
-                fontFamily: 'Debug',
                 color: Get.find<ThemeService>().isDarkMode() ? AppColors.secondary : AppColors.primary,
               ),
             ),

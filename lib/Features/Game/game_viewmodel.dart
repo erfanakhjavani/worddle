@@ -78,7 +78,7 @@ class GameViewModel extends GetxController {
 
 
     if (!game.checkWord(guess)) {
-      wordMessage.value = 'the word does not exist try again';
+      wordMessage.value = 'the word does not exist try again'.tr;
       return;
     }
 
@@ -92,10 +92,11 @@ class GameViewModel extends GetxController {
     worddleBoard.refresh();
 
     if (guess == game.gameGuess) {
-      wordMessage.value = 'Congratulations 🎉';
+      wordMessage.value = 'Congratulations 🎉'.tr;
       isGameOver.value = true;
     } else if (currentRow.value >= game.maxChances - 1) {
-      wordMessage.value = 'Game over! Correct word: ${game.gameGuess}';
+      wordMessage.value = 'Game over! Correct word:'.tr;
+      wordMessage.value += game.gameGuess;
       isGameOver.value = true;
 
     }

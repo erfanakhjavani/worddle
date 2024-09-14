@@ -29,7 +29,7 @@ class MenuView extends GetView<MenuViewmodel> {
                 child: Text(
                   'Welcome to Raviar is',
                   style: Get.textTheme.headlineLarge?.copyWith(
-                    color: c.isDarkMode() ? AppColors.primary : AppColors.secondary,
+                    color: c.isDarkMode() ? Colors.white : Colors.black,
                     fontFamily: 'Debug',
                     fontWeight: FontWeight.w100,
                   ),
@@ -91,8 +91,6 @@ class MenuView extends GetView<MenuViewmodel> {
         return Text(
           title,
           style: Get.textTheme.headlineLarge?.copyWith(
-            fontFamily: 'Debug',
-            color: c.isDarkMode() ? Colors.white : Colors.black,
             fontWeight: FontWeight.w500,
           ),
         ).animate(

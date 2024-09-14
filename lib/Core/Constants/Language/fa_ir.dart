@@ -6,4 +6,7 @@ Map<String, String> get faIR => {
   'word-length' : 'تعداد کلمات',
   'max-attempts' : 'حداکثر تلاش',
   'start' : 'شروع',
+  'the word does not exist try again' : 'کلمه وجود ندارد دوباره امتحان کنید!',
+  'Congratulations 🎉' : 'تبریک شما موفق شدید 🎉',
+  'Game over! Correct word:' : 'بازی تمام شد! کلمه صحیح: '
 };

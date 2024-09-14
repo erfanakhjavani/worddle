@@ -26,7 +26,7 @@ class WorddleGame {
     }
 
     if (wordList.isEmpty) {
-      throw Exception('هیچ کلمه‌ای با طول $wordLength پیدا نشد');
+      throw Exception('No words found with length $wordLength');
     }
 
     final random = Random();
