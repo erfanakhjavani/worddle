@@ -177,7 +177,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   void disableRandomKeys() {
     // اگر کاربر بیش از دو بار کلیک کرده باشد، هیچ کاری انجام نده
     if (helpClickCount.value >= 2) {
-      return; // دیگر دکمه‌ها را غیرفعال نکن
+      return;
     }
 
     // جمع‌آوری تمام حروف کیبورد

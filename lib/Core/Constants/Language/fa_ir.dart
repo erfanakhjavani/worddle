@@ -8,5 +8,7 @@ Map<String, String> get faIR => {
   'start' : 'شروع',
   'the word does not exist try again' : 'کلمه وجود ندارد دوباره امتحان کنید!',
   'Congratulations 🎉' : 'تبریک شما موفق شدید 🎉',
-  'Game over! Correct word:' : 'بازی تمام شد! کلمه صحیح: '
+  'Game over! Correct word:' : 'بازی تمام شد! کلمه صحیح: ',
+  'Raviar is Words' : 'راویار کلمات',
+
 };

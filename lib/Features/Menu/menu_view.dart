@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wordle/Core/Constants/app_colors.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
 import 'package:wordle/Features/Menu/Play/menu_play_view.dart';
 import 'package:wordle/Features/Menu/menu_viewmodel.dart';
@@ -15,6 +14,7 @@ class MenuView extends GetView<MenuViewmodel> {
 
   @override
   Widget build(BuildContext context) {
+   var isFarsi =  Get.locale!.languageCode == 'fa';
     return Scaffold(
       body: Column(
         children: [
@@ -25,13 +25,14 @@ class MenuView extends GetView<MenuViewmodel> {
             children: [
               // متن خوش‌آمدگویی
               GetBuilder<ThemeService>(builder: (c)=>  Positioned(
-                top: 80,
+                top: 60,
                 child: Text(
-                  'Welcome to Raviar is',
-                  style: Get.textTheme.headlineLarge?.copyWith(
-                    color: c.isDarkMode() ? Colors.white : Colors.black,
-                    fontFamily: 'Debug',
+                  'Raviar is Words'.tr,
+                  style: Get.textTheme.displayLarge?.copyWith(
+                    color: c.isDarkMode() ? Colors.white : Colors.blueGrey,
+                    fontFamily: isFarsi ? 'Yekan' : 'Debug',
                     fontWeight: FontWeight.w100,
+                    fontSize: isFarsi ? 40 : 50
                   ),
                 ),
               ),),

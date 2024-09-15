@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
 import 'package:wordle/Core/Themes/themes.dart';
+import 'package:wordle/Features/Menu/menu_view.dart';
 
 import '../../Core/Constants/app_route.dart';
 
@@ -21,7 +22,9 @@ class LanguageView extends StatelessWidget {
               onTap: () {
                 var localeEn = const Locale('en');
                 Get.updateLocale(localeEn);
-                Get.toNamed(AppRoute.menuView);
+                Get.offAll(const MenuView(),transition: Transition.fadeIn,duration: const Duration(seconds: 1),
+                    curve: Curves.easeIn
+                );
               },
             ),
             const SizedBox(height: 10),
@@ -31,7 +34,9 @@ class LanguageView extends StatelessWidget {
               onTap: () {
                 var localeFa = const Locale('fa');
                 Get.updateLocale(localeFa);
-                Get.toNamed(AppRoute.menuView);
+                Get.offAll(const MenuView(),transition: Transition.fadeIn,duration: const Duration(seconds: 1),
+                curve: Curves.easeIn
+                );
               },
               font: 'Yekan'
             ),

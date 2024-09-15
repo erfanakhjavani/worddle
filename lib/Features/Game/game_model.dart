@@ -16,15 +16,15 @@ class WorddleGame {
 
   Future<void> initGame() async {
     if (isFarsi) {
-      // استفاده از لیست کلمات فارسی
+      // Farsi
       Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'farsi');
       Set<String> dictionary2 = await generateDictionary(wordLength: wordLength,lang: 'farsi2');
-      wordList = dictionary.where((word) => word.length == wordLength).toList();
-      wordList += dictionary2.where((word) => word.length == wordLength).toList();
+      wordList = dictionary.toList();
+      wordList += dictionary2.toList();
     } else {
-      // انگلیسی
+      // English
       Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'english');
-      wordList = dictionary.where((word) => word.length == wordLength).toList();
+      wordList = dictionary.toList();
     }
 
     if (wordList.isEmpty) {
