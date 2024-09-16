@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wordle/Core/Themes/theme_service.dart';
-import 'package:wordle/Core/Themes/themes.dart';
 import 'package:wordle/Features/Menu/menu_view.dart';
 
-import '../../Core/Constants/app_route.dart';
 
 class LanguageView extends StatelessWidget {
   const LanguageView({super.key});

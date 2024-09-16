@@ -10,7 +10,8 @@ class WorddleGame {
   final int maxChances;
   final bool isFarsi; // افزودن پرچم برای مشخص کردن زبان فارسی
 
-  WorddleGame({required this.wordLength, required this.maxChances, this.isFarsi = false}) {
+  WorddleGame({required this.wordLength, required this.maxChances, this.isFarsi = false})
+  {
     initGame();
   }
 
@@ -19,8 +20,7 @@ class WorddleGame {
       // Farsi
       Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'farsi');
       Set<String> dictionary2 = await generateDictionary(wordLength: wordLength,lang: 'farsi2');
-      wordList = dictionary.toList();
-      wordList += dictionary2.toList();
+      wordList = dictionary.union(dictionary2).toList();
     } else {
       // English
       Set<String> dictionary = await generateDictionary(wordLength: wordLength,lang: 'english');
