@@ -49,7 +49,7 @@ class LanguageView extends StatelessWidget {
     required Function() onTap,
     String? font
   }) {
-    return InkWell(
+    return GestureDetector(
       onTap: (){
 
         onTap();
