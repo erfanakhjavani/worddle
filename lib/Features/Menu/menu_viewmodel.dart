@@ -1,43 +1,42 @@
 import 'package:get/get.dart';
 
+//! MenuViewModel handles the shaking animation for menu items
 class MenuViewmodel extends GetxController {
-  // متغیرهای Rx برای کنترل لرزش آیتم‌ها
+  //* Rx variables for controlling the shaking animation of the items
   var isPlayShaking = false.obs;
   var isOnlinePvPShaking = false.obs;
   var isSettingsShaking = false.obs;
   var isExitShaking = false.obs;
 
-  // متد برای شروع لرزش
+  //! Method to start shaking the selected menu item
   void startShaking(String menuItem) {
-    _stopAllShaking(); // متوقف کردن لرزش‌های قبلی
+    _stopAllShaking(); //* Stop any ongoing shaking
     switch (menuItem) {
       case 'Play':
-        isPlayShaking.value = true;
+        isPlayShaking.value = true; //* Start shaking for "Play"
         break;
       case 'Online PvP':
-        isOnlinePvPShaking.value = true;
+        isOnlinePvPShaking.value = true; //* Start shaking for "Online PvP"
         break;
       case 'Settings':
-        isSettingsShaking.value = true;
+        isSettingsShaking.value = true; //* Start shaking for "Settings"
         break;
       case 'Exit':
-        isExitShaking.value = true;
+        isExitShaking.value = true; //* Start shaking for "Exit"
         break;
     }
 
-    // توقف لرزش بعد از مدت زمان کوتاه
+    //! Stop shaking after a short duration (100 ms)
     Future.delayed(const Duration(milliseconds: 100), () {
-      _stopAllShaking();
+      _stopAllShaking(); //* Stop all shaking after the delay
     });
   }
 
-
-
-  // متد برای توقف لرزش
+  //! Private method to stop shaking all items
   void _stopAllShaking() {
-    isPlayShaking.value = false;
-    isOnlinePvPShaking.value = false;
-    isSettingsShaking.value = false;
-    isExitShaking.value = false;
+    isPlayShaking.value = false; //* Stop "Play" shaking
+    isOnlinePvPShaking.value = false; //* Stop "Online PvP" shaking
+    isSettingsShaking.value = false; //* Stop "Settings" shaking
+    isExitShaking.value = false; //* Stop "Exit" shaking
   }
 }
