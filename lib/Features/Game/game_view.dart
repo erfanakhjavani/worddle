@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wordle/Core/Widgets/widgets.dart';
+import 'package:wordle/Features/Menu/menu_view.dart';
 import '../../Core/Widgets/popper_generator.dart';
 import 'game_board_widget.dart';
 import 'game_keyboard_widget.dart';
@@ -44,6 +47,21 @@ class GameView extends GetView<GameViewModel> {
                     ],
                   )
                 ],
+                leading: IconButton(
+                  onPressed: (){
+                    showMyDialog(
+                        context: context,
+                      accept: () =>
+                        Get.offAll(const MenuView(),
+                          transition: Transition.rightToLeft,
+                          duration: 250.ms, //* Smooth transition with 1-second duration
+                          curve: Curves.easeIn, //* Use easeIn curve for the animation
+                        )
+
+                    );
+                  },
+                  icon: const Icon(Icons.home_sharp, size:  30),
+                ),
               ),
 
               //! Display message for the player

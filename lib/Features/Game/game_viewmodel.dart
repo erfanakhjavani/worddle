@@ -58,12 +58,23 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
 
   //! Initialize the game with a given word length and max chances
   Future<void> initializeGame(int wordLength, int maxChances, {bool isFarsiGame = false}) async {
+    //* Reset the keyboard and board positions
+    currentRow.value = 0;
+    currentLetter.value = 0;
+
+    //* Clear and refresh the letter colors for the keyboard
+    letterColors.clear();
+
+    //* Refresh the game board
+    worddleBoard.refresh();
+
     isFarsi.value = isFarsiGame;
+
     game = WorddleGame(wordLength: wordLength, maxChances: maxChances, isFarsi: isFarsiGame);
 
     try {
       await game.initGame(); //* Initialize the game
-      game.setupBoard(); //*Setup the initial game board
+      game.setupBoard(); //* Setup the initial game board
       worddleBoard.value = game.worddleBoard; //* Assign the board to the observable list
       wordMessage.value = game.gameMessage; //* Set the initial message
       isGameOver.value = false; //* Reset the game over flag
@@ -78,16 +89,6 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   //! Reset the game and reinitialize it
   void resetGame({required bool isFarsi}) async {
     await initializeGame(game.wordLength, game.maxChances, isFarsiGame: isFarsi);
-
-    //* Reset the keyboard and board positions
-    currentRow.value = 0;
-    currentLetter.value = 0;
-
-    //* Clear and refresh the letter colors for the keyboard
-    letterColors.clear();
-
-    //* Refresh the game board
-    worddleBoard.refresh();
   }
 
   //! Insert a letter into the current row of the game board

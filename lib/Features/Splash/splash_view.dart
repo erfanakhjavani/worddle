@@ -32,9 +32,7 @@ class SplashView extends GetView<SplashViewmodel> {
             Obx(() {
               //* Check if the app is connected to the internet or in the initial state
               if (controller.connectionStatus.value == ConnectionStatus.connected ||
-                  controller.connectionStatus.value == ConnectionStatus.initial) {
-                return const SizedBox.shrink(); //* Do nothing, just show the splash screen
-              }
+                  controller.connectionStatus.value == ConnectionStatus.initial) {}
               //* If the connection is lost, show an error message and a retry button
               else if (controller.connectionStatus.value == ConnectionStatus.disconnected) {
                 return Padding(
