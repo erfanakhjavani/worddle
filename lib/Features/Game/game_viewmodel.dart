@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import '../../Core/Constants/keyboard.dart';
 import 'game_model.dart';
 
 class GameViewModel extends GetxController with GetTickerProviderStateMixin {
-  //* Wordle game instance
-  late WorddleGame game;
 
-  //* Observable variables for game status and UI updates
+  late WorddleGame game;
   var wordMessage = ''.obs;
   var worddleBoard = <List<Letter>>[].obs;
   var currentRow = 0.obs;
@@ -17,71 +14,46 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   var letterColors = <String, Color>{}.obs;
   var isGameOver = false.obs;
   var isFarsi = false.obs;
-  late AnimationController lottieController;
-  var helpClickCount = 0.obs;
-  late AnimationController popperController;
   var isCorrectGuess = false.obs;
+  var helpClickCount = 0.obs;
 
+  late AnimationController lottieController;
+  late AnimationController popperController;
   Timer? timer;
 
   @override
   void onInit() {
     super.onInit();
-
-    //TODO AnimationController for popper effect
-    popperController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-
-    //TODO Lottie animation controller setup
-    lottieController = AnimationController(
-      vsync: this,
-      duration: GetNumUtils(2).seconds,
-    );
-
-    //! Timer to periodically reset and forward the lottie animation every 6 seconds
-    timer = Timer.periodic(const Duration(seconds: 6), (Timer t) {
-      lottieController.reset();
-      lottieController.forward();
-    });
+    setupAnimations();
+    setupTimer();
   }
 
   @override
   void onClose() {
-    //TODO Dispose of the animation controllers and timer when the controller is closed
-    lottieController.dispose();
-    popperController.dispose();
-    timer?.cancel();
+    disposeResources();
     super.onClose();
   }
 
-  //! Initialize the game with a given word length and max chances
+  //! Initialize the game with provided parameters
   Future<void> initializeGame(int wordLength, int maxChances, {bool isFarsiGame = false}) async {
-    //* Reset the keyboard and board positions
+    //! Resetting the game state
     currentRow.value = 0;
     currentLetter.value = 0;
-
-    //* Clear and refresh the letter colors for the keyboard
     letterColors.clear();
-
-    //* Refresh the game board
-    worddleBoard.refresh();
-
+    worddleBoard.clear();
     isFarsi.value = isFarsiGame;
 
     game = WorddleGame(wordLength: wordLength, maxChances: maxChances, isFarsi: isFarsiGame);
 
     try {
-      await game.initGame(); //* Initialize the game
-      game.setupBoard(); //* Setup the initial game board
-      worddleBoard.value = game.worddleBoard; //* Assign the board to the observable list
-      wordMessage.value = game.gameMessage; //* Set the initial message
-      isGameOver.value = false; //* Reset the game over flag
-      helpClickCount.value = 0; //* Reset the help click count
+      await game.initGame();
+      game.setupBoard();
+      worddleBoard.assignAll(game.worddleBoard);
+      wordMessage.value = game.gameMessage;
+      isGameOver.value = false;
+      helpClickCount.value = 0;
       print('worddle is:  ${game.gameGuess}');
     } catch (e) {
-      //* Error handling in case game initialization fails
       wordMessage.value = 'Error starting game: ${e.toString()}';
     }
   }
@@ -91,124 +63,181 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
     await initializeGame(game.wordLength, game.maxChances, isFarsiGame: isFarsi);
   }
 
-  //! Insert a letter into the current row of the game board
+  //! Insert a letter into the current row
   void insertLetter(String letter) {
-    //* Condition to check if the game is ongoing and the letter count is within the allowed range
-    if (!isGameOver.value && currentLetter.value < game.wordLength && currentRow.value < game.maxChances) {
-      //* Insert the letter at the current position on the board
-      game.insertWord(
-        currentLetter.value,
-        Letter(letter, 0),
-        currentRow.value,
-      );
-      //* Move to the next letter position
+    if (canInsertLetter()) {
+      game.insertWord(currentLetter.value, Letter(letter, 0), currentRow.value);
       currentLetter.value++;
-      //* Refresh the board to display the updated letters
       worddleBoard.refresh();
     }
   }
 
-  //! Remove the last inserted letter
+  //! Delete the last letter
   void deleteLetter() {
-    //* Condition to ensure the game is not over and there are letters to delete
-    if (!isGameOver.value && currentLetter.value > 0 && currentRow.value < game.maxChances) {
-      //* Move back one position to delete the letter
+    if (canDeleteLetter()) {
       currentLetter.value--;
-      //* Remove the letter from the board
-      game.insertWord(
-        currentLetter.value,
-        Letter('', 0), //* Empty letter indicates removal
-        currentRow.value,
-      );
-      //* Refresh the board to update the view after deletion
+      game.insertWord(currentLetter.value, Letter('', 0), currentRow.value); //!Clear the letter
       worddleBoard.refresh();
     }
   }
 
-  //! Submit the current guess and check it against the correct word
+  //! Submit the current guess and check the result
   void submitGuess() async {
-    wordMessage.value = ''; //* Reset the word message
+    wordMessage.value = '';
+    if (!canSubmitGuess()) return;
 
-    //* Conditions to check if the game is over or the guess is incomplete
-    if (isGameOver.value || currentLetter.value < game.wordLength || currentRow.value >= game.maxChances) return;
-
-    String guess = game.worddleBoard[currentRow.value].map((e) => e.letter).join(); //* Build the guess from the current row
-
-    //* Check if the guessed word exists
+    String guess = getCurrentGuess();
     if (!game.checkWord(guess)) {
       wordMessage.value = 'The word does not exist. Try again.'.tr;
       return;
     }
 
-//* Loop through each letter in the guess and animate them
-    for (int i = 0; i < game.wordLength; i++) {
-      await animateLetter(i); //* Wait for the animation to complete
-      checkLetter(i, guess); //* Check and change the letter color after the animation
-    }
+    await animateAndCheckLetters(guess);
 
-    //* Refresh the game board after submitting the guess
-    worddleBoard.refresh();
-
-    //* Check if the guess is correct
     if (guess == game.gameGuess) {
-      wordMessage.value = 'Congratulations 🎉'.tr;
-      isGameOver.value = true;
-      isCorrectGuess.value = true;
-      popperController.forward(from: 0); //* Play the popper animation for winning
-    } else if (currentRow.value >= game.maxChances - 1) {
-      //* If out of chances, display the correct word
-      wordMessage.value = 'Game over! Correct word:'.tr;
-      wordMessage.value += game.gameGuess;
-      isGameOver.value = true;
+      handleCorrectGuess();
+    } else if (isOutOfChances()) {
+      handleGameOver();
     }
 
-    currentRow.value++; //* Move to the next row
-    currentLetter.value = 0; //* Reset the letter position
+    moveToNextRow();
   }
 
-  //! Animate the letter flip effect for a specific index
-  Future<void> animateLetter(int index) async {
-    game.worddleBoard[currentRow.value][index].code = -1; //* Mark the letter for animation
-    worddleBoard.refresh(); //* Refresh the board to show the animation
-
-    //* Delay to allow the flip animation to display
-    await Future.delayed(600.ms);
+  //! Animate letters and check them
+  Future<void> animateAndCheckLetters(String guess) async {
+    for (int i = 0; i < game.wordLength; i++) {
+      await animateLetter(i);
+      checkLetter(i, guess);
+    }
+    worddleBoard.refresh();
   }
 
-  //! Check if the letter is in the correct position or the word
+  //! Handle correct guess scenario
+  void handleCorrectGuess() {
+    wordMessage.value = 'Congratulations 🎉'.tr;
+    isGameOver.value = true;
+    isCorrectGuess.value = true;
+    popperController.forward(from: 0);
+  }
+
+  //! Handle game over scenario
+  void handleGameOver() {
+    wordMessage.value = 'Game over! Correct word:'.tr + game.gameGuess;
+    isGameOver.value = true;
+  }
+
+  //! Check if the letter is correct or misplaced
   void checkLetter(int index, String guess) {
-    String char = guess[index];
+    Map<String, int> charCount = countCharacters(game.gameGuess);
 
-    // Create a Map to count occurrences of each character in the correct word
-    Map<String, int> charCount = {};
-    for (var letter in game.gameGuess.split('')) {
-      charCount[letter] = (charCount[letter] ?? 0) + 1;
-    }
-
-    // First pass: check letters that are in the correct position
+    //* First pass: mark correct positions (green)
     for (int i = 0; i <= index; i++) {
-      String currentChar = guess[i];
-      if (game.gameGuess[i] == currentChar) {
-        game.worddleBoard[currentRow.value][i].code = 1; // Correct position (green)
-        letterColors[currentChar] = Colors.green;
-        charCount[currentChar] = charCount[currentChar]! - 1; // Decrease count for correct position
+      if (isCorrectPosition(i, guess)) {
+        setCorrectPosition(i, guess[i], charCount);
       }
     }
 
-    //* Second pass: check letters that are in the word but in the wrong position
+    //! Second pass: mark misplaced or incorrect letters
     for (int i = 0; i <= index; i++) {
-      String currentChar = guess[i];
-      if (game.worddleBoard[currentRow.value][i].code != 1) { //* Skip if already green
-        if (game.gameGuess.contains(currentChar) && charCount[currentChar]! > 0) {
-          game.worddleBoard[currentRow.value][i].code = 2; //* Wrong position (yellow)
-          letterColors[currentChar] = Colors.amber.shade400;
-          charCount[currentChar] = charCount[currentChar]! - 1; //* Decrease count for wrong position
+      if (game.worddleBoard[currentRow.value][i].code != 1) { //* Skip correct letters
+        if (isMisplacedLetter(i, guess[i], charCount)) {
+          setMisplacedPosition(i, guess[i], charCount);
         } else {
-          game.worddleBoard[currentRow.value][i].code = 3; //* Incorrect letter (grey)
-          letterColors[currentChar] == Colors.green ? null : letterColors[currentChar] = Colors.grey.shade700;
+          setIncorrectPosition(i, guess[i]);
         }
       }
     }
+  }
+
+  //! Helper functions
+  bool isCorrectPosition(int index, String guess) => game.gameGuess[index] == guess[index];
+  bool isMisplacedLetter(int index, String char, Map<String, int> charCount) => game.gameGuess.contains(char) && charCount[char]! > 0;
+
+  void setCorrectPosition(int index, String char, Map<String, int> charCount) {
+    game.worddleBoard[currentRow.value][index].code = 1; //* Correct position (green)
+    letterColors[char] = Colors.green;
+    charCount[char] = charCount[char]! - 1;
+  }
+
+  void setMisplacedPosition(int index, String char, Map<String, int> charCount) {
+    game.worddleBoard[currentRow.value][index].code = 2; //* Wrong position (yellow)
+    letterColors[char] = Colors.amber.shade400;
+    charCount[char] = charCount[char]! - 1;
+  }
+
+  void setIncorrectPosition(int index, String char) {
+    game.worddleBoard[currentRow.value][index].code = 3; //* Incorrect letter (grey)
+    if (letterColors[char] != Colors.green) {
+      letterColors[char] = Colors.grey.shade700;
+    }
+  }
+
+  //! Count character occurrences
+  Map<String, int> countCharacters(String word) {
+    Map<String, int> charCount = {};
+    for (var letter in word.split('')) {
+      charCount[letter] = (charCount[letter] ?? 0) + 1;
+    }
+    return charCount;
+  }
+
+  //!Move to the next row after a guess
+  void moveToNextRow() {
+    currentRow.value++;
+    currentLetter.value = 0;
+  }
+
+  //!Check if the guess can be submitted
+  bool canSubmitGuess() {
+    return !isGameOver.value && currentLetter.value == game.wordLength && currentRow.value < game.maxChances;
+  }
+
+  //!Check if the letter can be inserted
+  bool canInsertLetter() {
+    return !isGameOver.value && currentLetter.value < game.wordLength && currentRow.value < game.maxChances;
+  }
+
+  //!Check if the letter can be deleted
+  bool canDeleteLetter() {
+    return !isGameOver.value && currentLetter.value > 0 && currentRow.value < game.maxChances;
+  }
+
+  //!Check if the player is out of chances
+  bool isOutOfChances() {
+    return currentRow.value >= game.maxChances - 1;
+  }
+
+  //!Animate the letter flip effect for a specific index
+  Future<void> animateLetter(int index) async {
+    game.worddleBoard[currentRow.value][index].code = -1; //* Mark the letter for animation
+    worddleBoard.refresh(); //* Refresh the board to show the animation
+    await Future.delayed(const Duration(milliseconds: 600)); //*Delay for the animation
+  }
+
+  //!Get the current guess as a string
+  String getCurrentGuess() {
+    return game.worddleBoard[currentRow.value].map((e) => e.letter).join();
+  }
+
+  //!Set up animation controllers
+  void setupAnimations() {
+    popperController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    lottieController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+  }
+
+  //!Set up a timer for periodic tasks (e.g., Lottie animation)
+  void setupTimer() {
+    timer = Timer.periodic(const Duration(seconds: 6), (Timer t) {
+      lottieController.reset();
+      lottieController.forward();
+    });
+  }
+
+  //!Dispose of resources like animation controllers and timers
+  void disposeResources() {
+    lottieController.dispose();
+    popperController.dispose();
+    timer?.cancel();
   }
 
   //! Disable random keys after help button is clicked
@@ -227,7 +256,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
     String targetWord = game.gameGuess;
     allKeys.removeWhere((key) => targetWord.contains(key) || key == 'DEL' || key == 'DO');
 
-    helpClickCount.value++; // Increment help click count
+    helpClickCount.value++; //* Increment help click count
 
     //* Calculate how many keys to disable based on the click count
     int disableCount = ((allKeys.length / 6) * helpClickCount.value).round();
