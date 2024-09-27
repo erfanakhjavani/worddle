@@ -95,7 +95,7 @@ class GameView extends GetView<GameViewModel> {
 
           //! Confetti effect when the player guesses correctly
           Obx(() {
-            if (controller.isCorrectGuess.value) {
+            if (controller.usePopper.value) {
               return Stack(
                 children: [
                   //! Forward direction confetti
