@@ -4,6 +4,7 @@ import 'package:wordle/Core/Themes/theme_service.dart';
 import 'package:wordle/Features/Game/game_viewmodel.dart';
 import 'package:wordle/Features/Language/language_view.dart';
 import 'package:wordle/Features/Language/language_viewmodel.dart';
+import 'package:wordle/Features/Menu/Settings/menu_setting_viewmodel.dart';
 import 'package:wordle/Features/Menu/menu_viewmodel.dart';
 import 'package:wordle/Features/Splash/splash_viewmodel.dart';
 
@@ -17,6 +18,7 @@ class Binding extends Bindings{
     Get.put(MenuPlayViewModel());
     Get.put(GameViewModel());
     Get.put(LanguageViewmodel());
+    Get.put(MenuSettingViewmodel());
   }
 
 }

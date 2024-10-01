@@ -12,11 +12,12 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'back'.tr, //* Title for the AppBar
-          style: Get.textTheme.headlineSmall,
+          style: theme.headlineSmall,
         ),
         titleSpacing: 0,
       ),

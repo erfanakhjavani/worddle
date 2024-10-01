@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wordle/Core/Constants/app_colors.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
 import 'package:wordle/Features/Menu/Play/menu_play_view.dart';
 import 'package:wordle/Features/Menu/menu_viewmodel.dart';
-
 import 'Settings/menu_setting_view.dart';
 
 class MenuView extends GetView<MenuViewmodel> {
@@ -13,6 +13,7 @@ class MenuView extends GetView<MenuViewmodel> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).textTheme;
     var isFarsi = Get.locale!.languageCode == 'fa';
     return Scaffold(
       body: Column(
@@ -27,8 +28,8 @@ class MenuView extends GetView<MenuViewmodel> {
                 top: 60,
                 child: Text(
                   'Raviar is Words'.tr,
-                  style: Get.textTheme.displayLarge?.copyWith(
-                    color: c.isDarkMode() ? Colors.white : Colors.blueGrey,
+                  style: theme.displayLarge?.copyWith(
+                    color: c.isDarkMode() ? AppColors.primary : AppColors.secondary,
                     fontFamily: isFarsi ? 'Yekan' : 'Debug',
                     fontWeight: FontWeight.w100,
                     fontSize: isFarsi ? 40 : 50,
@@ -87,27 +88,29 @@ class MenuView extends GetView<MenuViewmodel> {
   }
 
   //! Widget to build individual menu item with shake animation
-  Widget _buildMenuItem({
+  Obx _buildMenuItem({
     required String title,
     required RxBool isShaking,
     required Function() onTap,
   }) {
-    return GestureDetector(
-      onTap: () {
-        controller.startShaking(title);
-        onTap();
-        print('$title selected'); // Log menu selection
-      },
-      child: GetBuilder<ThemeService>(builder: (c) {
-        return Text(
-          title,
-          style: Get.textTheme.headlineLarge?.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
-        ).animate(
-          target: isShaking.value ? 1 : 0,
-        ).shake(duration: 100.ms); //* Shake animation for menu item
-      }),
+    return Obx(() {
+        return GestureDetector(
+          onTap: () {
+            isShaking.value = true;
+            controller.stopAllShaking(isShaking);
+            onTap();
+            print('$title selected'); // Log menu selection
+          },
+          child: Text(
+              title,
+              style: Get.textTheme.headlineLarge?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ).animate(
+              target: isShaking.value ? 1 : 0,
+            ).shake(duration: 100.ms) //* Shake animation for menu item
+        );
+      }
     );
   }
 }

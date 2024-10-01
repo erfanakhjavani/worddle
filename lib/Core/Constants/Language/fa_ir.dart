@@ -14,4 +14,11 @@ Map<String, String> get faIR => {
   'Do you really want to exit?': 'آیا مطمئنید که می‌خواهید خارج شوید؟',
   'No': 'خیر',
   'Yes': 'بله',
+  'Language': 'زبان',
+  'Theme': 'تم',
+  'Dark Theme': 'حالت تاریک',
+  'Light': 'روشن',
+  'Contact': 'ارتباط',
+  'Version': 'نسخه',
+  'Privacy Policy': 'امنیت و حریم خصوصی',
 };

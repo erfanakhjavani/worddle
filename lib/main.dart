@@ -22,17 +22,19 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      translations: MyTranslation(), //* Load translations for multi-language support
-      locale: const Locale('en'), //* Set default language to English
-      fallbackLocale: const Locale('en'), //* Fallback to English if the desired locale is not available
-      debugShowCheckedModeBanner: false, //* Disable debug banner
-      getPages: AppRoute.pages, //* Define app routes
-      initialBinding: Binding(), //* Set initial bindings for dependency injection
-      darkTheme: Themes.dark, //* Define dark theme
-      theme: Themes.light, //* Define light theme
-      themeMode: Get.find<ThemeService>().theme, //* Use the theme defined by ThemeService
-      initialRoute: AppRoute.splashView, //* Set the initial route (splash screen)
+    return Obx(
+        () => GetMaterialApp(
+          translations: MyTranslation(), //* Load translations for multi-language support
+          locale: Get.locale ?? const Locale('en'), //* Set default language to English
+          fallbackLocale: const Locale('en'),
+          debugShowCheckedModeBanner: false, //* Disable debug banner
+          getPages: AppRoute.pages, //* Define app routes
+          initialBinding: Binding(), //* Set initial bindings for dependency injection
+          darkTheme: Themes.dark, //* Define dark theme
+          theme: Themes.light, //* Define light theme
+          themeMode: Get.find<ThemeService>().theme, //* Use the theme defined by ThemeService
+          initialRoute: AppRoute.splashView, //* Set the initial route (splash screen)
+        )
     );
   }
 }

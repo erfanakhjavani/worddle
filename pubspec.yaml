@@ -41,7 +41,9 @@ dependencies:
   flutter_native_splash: ^2.4.1
   connectivity_plus: ^6.0.5
   loading_animation_widget: ^1.2.1
+  url_launcher: ^6.1.7
   lottie: ^3.1.2
+  stack_appodeal_flutter: ^3.3.2
 
 dev_dependencies:
   flutter_test:
@@ -89,6 +91,9 @@ flutter:
     - family: Yekan
       fonts:
         - asset: assets/ttf/Yekan.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/ttf/Roboto-Regular.ttf
 
 
   #

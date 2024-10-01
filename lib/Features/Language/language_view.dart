@@ -8,6 +8,7 @@ class LanguageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -19,8 +20,11 @@ class LanguageView extends StatelessWidget {
               onTap: () {
                 var localeEn = const Locale('en');
                 Get.updateLocale(localeEn);
-                Get.offAll(const MenuView(),transition: Transition.fadeIn,duration: const Duration(seconds: 1),
-                    curve: Curves.easeIn
+                Get.offAll(
+                  const MenuView(),
+                  transition: Transition.fadeIn,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.easeIn,
                 );
               },
             ),
@@ -31,11 +35,13 @@ class LanguageView extends StatelessWidget {
               onTap: () {
                 var localeFa = const Locale('fa');
                 Get.updateLocale(localeFa);
-                Get.offAll(const MenuView(),transition: Transition.fadeIn,duration: const Duration(seconds: 1),
-                curve: Curves.easeIn
+                Get.offAll(
+                  const MenuView(),
+                  transition: Transition.fadeIn,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.easeIn,
                 );
               },
-              font: 'Yekan'
             ),
           ],
         ),
@@ -47,7 +53,6 @@ class LanguageView extends StatelessWidget {
     required String languageImage,
     required String language,
     required Function() onTap,
-    String? font
   }) {
     return GestureDetector(
       onTap: (){
@@ -70,7 +75,7 @@ class LanguageView extends StatelessWidget {
             Text(
               language,
               style: Get.textTheme.bodyLarge?.copyWith(color: Colors.white,
-              fontFamily: font
+
               ),
             ),
           ],
