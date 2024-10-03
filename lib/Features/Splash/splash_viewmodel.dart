@@ -26,7 +26,7 @@ class SplashViewmodel extends GetxController {
 
 
   initialization() {
-    Appodeal.setTesting(false); //only not release mode
+    Appodeal.setTesting(true); //only not release mode
     Appodeal.setAutoCache(AppodealAdType.Banner, true);
     Appodeal.setAutoCache(AppodealAdType.RewardedVideo, true);
     Appodeal.setUseSafeArea(false);
@@ -48,8 +48,9 @@ class SplashViewmodel extends GetxController {
   //! Method to check internet connection and handle the navigation flow
   Future<void> checkConnection() async {
     connectionStatus.value = ConnectionStatus.initial; //* Set initial status
-    Future.delayed(const Duration(seconds: 3), () async {
+    Future.delayed(const Duration(seconds: 1), () async {
       await initialization();
+      Appodeal.destroy(AppodealAdType.BannerBottom);
       bool isConnected = await splashRepository.checkConnectivity(); //* Check if connected
       if (isConnected == true) {
         connectionStatus.value = ConnectionStatus.connected; //* Update status to connected

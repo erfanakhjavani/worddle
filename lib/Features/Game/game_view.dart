@@ -1,14 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import 'package:wordle/Core/Widgets/widgets.dart';
 import 'package:wordle/Features/Menu/menu_view.dart';
 import '../../Core/Widgets/popper_generator.dart';
 import 'game_board_widget.dart';
 import 'game_keyboard_widget.dart';
 import 'game_viewmodel.dart';
-
 
 class GameView extends GetView<GameViewModel> {
   const GameView({super.key});
@@ -18,7 +20,6 @@ class GameView extends GetView<GameViewModel> {
     return Scaffold(
       body: Stack(
         children: [
-
           //! Main game structure and layout
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -30,65 +31,88 @@ class GameView extends GetView<GameViewModel> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          controller.onHelpClicked(); //* Call help function when tapped
+                          controller
+                              .onHelpClicked(); //* Call help function when tapped
                         },
                         child: Lottie.asset('assets/json/help.json',
                             width: 40,
-                            controller: controller.lottieController //* Lottie animation controller
-                        ),
+                            controller: controller
+                                .lottieController //* Lottie animation controller
+                            ),
                       ),
                       IconButton(
                           onPressed: () {
                             //* Reset the game depending on the current language
-                            controller.resetGame(isFarsi: Get.locale?.languageCode == 'en' ? false : true);
+                            controller.resetGame(
+                                isFarsi: Get.locale?.languageCode == 'en'
+                                    ? false
+                                    : true);
                           },
-                          icon: const Icon(Icons.settings_backup_restore_sharp, size: 35,)
-                      ),
+                          icon: const Icon(
+                            Icons.settings_backup_restore_sharp,
+                            size: 35,
+                          )),
                     ],
                   )
                 ],
                 leading: IconButton(
-                  onPressed: (){
+                  onPressed: () {
                     showMyDialog(
                         context: context,
-                      accept: () =>
-                        Get.offAll(const MenuView(),
-                          transition: Transition.rightToLeft,
-                          duration: 250.ms, //* Smooth transition with 1-second duration
-                          curve: Curves.easeIn, //* Use easeIn curve for the animation
-                        )
-
-                    );
+                        accept: () {
+                          Appodeal.destroy(AppodealAdType.BannerBottom);
+                          Get.offAll(
+                            const MenuView(),
+                            transition: Transition.rightToLeft,
+                            duration: 250.ms,
+                            //* Smooth transition with 1-second duration
+                            curve: Curves
+                                .easeIn, //* Use easeIn curve for the animation
+                          );
+                        });
                   },
-                  icon: const Icon(Icons.home_sharp, size:  30),
+                  icon: const Icon(Icons.home_sharp, size: 30),
                 ),
               ),
 
               //! Display message for the player
               Obx(() => Text(
-                controller.wordMessage.value,
-                style: TextStyle(
-                  color: controller.wordMessage.value.contains('Congratulations 🎉'.tr)
-                      ? Colors.green //* Success message in green
-                      : Colors.red, //* Error message in red
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              )),
+                    controller.wordMessage.value,
+                    style: TextStyle(
+                      color: controller.wordMessage.value
+                              .contains('Congratulations 🎉'.tr)
+                          ? Colors.green //* Success message in green
+                          : Colors.red, //* Error message in red
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
 
               //! Game board area
-              const Expanded(
-                  flex: 2,
-                  child: GameBoard()
-              ),
+              const Expanded(flex: 2, child: GameBoard()),
+
 
               //! Game keyboard area with padding
-              Expanded(
-                  flex: 0,
+              Obx(
+                    () => Expanded(
+                  flex: controller.isLoadAds.value ? 1 : 0,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(3, 50, 3, 15),
+                    padding: const EdgeInsets.fromLTRB(3, 10, 3, 0),
                     child: GameKeyboard(),
-                  )
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Obx(() {
+                  if (controller.isLoadAds.value) {
+                    Appodeal.show(AppodealAdType.BannerBottom);
+                    return const SizedBox();
+                  } else {
+                    // تبلیغ هنوز لود نشده است
+                    return const SizedBox();
+                  }
+                }),
               ),
             ],
           ),
@@ -103,12 +127,15 @@ class GameView extends GetView<GameViewModel> {
                     child: PartyPopperGenerator(
                       direction: PopDirection.forwardX,
                       motionCurveX: FunctionCurve(func: (t) {
-                        return - t * t / 2 + t; //* Define the motion curve for confetti pieces
+                        return -t * t / 2 +
+                            t; //* Define the motion curve for confetti pieces
                       }),
                       motionCurveY: FunctionCurve(func: (t) {
-                        return 4 / 3 * t * t - t / 3; //* Define the vertical motion curve
+                        return 4 / 3 * t * t -
+                            t / 3; //* Define the vertical motion curve
                       }),
-                      numbers: 50, //* Number of confetti pieces
+                      numbers: 50,
+                      //* Number of confetti pieces
                       posX: -60.0,
                       posY: 30.0,
                       pieceHeight: 15.0,
@@ -122,10 +149,12 @@ class GameView extends GetView<GameViewModel> {
                     child: PartyPopperGenerator(
                       direction: PopDirection.backwardX,
                       motionCurveX: FunctionCurve(func: (t) {
-                        return - t * t / 2 + t; //* Define the motion curve for confetti pieces
+                        return -t * t / 2 +
+                            t; //* Define the motion curve for confetti pieces
                       }),
                       motionCurveY: FunctionCurve(func: (t) {
-                        return 4 / 3 * t * t - t / 3; //* Define the vertical motion curve
+                        return 4 / 3 * t * t -
+                            t / 3; //* Define the vertical motion curve
                       }),
                       numbers: 50,
                       posX: -60.0,
@@ -138,7 +167,8 @@ class GameView extends GetView<GameViewModel> {
                 ],
               );
             } else {
-              return const SizedBox.shrink(); //* Hide confetti effect if the guess is incorrect
+              return const SizedBox
+                  .shrink(); //* Hide confetti effect if the guess is incorrect
             }
           }),
         ],
@@ -146,6 +176,3 @@ class GameView extends GetView<GameViewModel> {
     );
   }
 }
-
-
-

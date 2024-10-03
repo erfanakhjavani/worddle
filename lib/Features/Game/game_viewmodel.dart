@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import '../../Core/Constants/keyboard.dart';
 import 'game_model.dart';
 
@@ -17,6 +18,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   var isFarsi = false.obs;
   var usePopper = false.obs;
   var helpClickCount = 0.obs;
+  var isLoadAds =  false.obs;
 
   late AnimationController lottieController;
   late AnimationController popperController;
@@ -34,6 +36,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
     disposeResources();
     super.onClose();
   }
+
 
   // Initialize the game
   Future<void> initializeGame(int wordLength, int maxChances, {bool isFarsiGame = false}) async {
@@ -241,6 +244,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   void setupTimer() {
     timer = Timer.periodic(const Duration(seconds: 6), (Timer t) {
       lottieController.reset();
+      checkAdLoaded();
       lottieController.forward();
     });
   }
@@ -283,4 +287,12 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
       disableRandomKeys();
     }
   }
+
+
+  Future<void> checkAdLoaded() async {
+    if (await Appodeal.isLoaded(AppodealAdType.BannerBottom)) {
+      isLoadAds.value = true;
+    }
+  }
+
 }

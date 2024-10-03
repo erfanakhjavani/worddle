@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import 'package:wordle/Features/Menu/menu_view.dart';
 
 
@@ -55,13 +56,13 @@ class LanguageView extends StatelessWidget {
     required Function() onTap,
   }) {
     return GestureDetector(
-      onTap: (){
+      onTap: () async{
 
         onTap();
-
+      //  await Appodeal.show(AppodealAdType.RewardedVideo);
       },
       child: Container(
-        width: Get.width / 2, // اندازه‌گیری عرض صفحه
+        width: Get.width / 2,
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
