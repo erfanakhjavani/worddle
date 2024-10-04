@@ -102,7 +102,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
         ),
       ),
       onPressed: () async {
-        await Appodeal.show(AppodealAdType.MREC);
+        await Appodeal.show(AppodealAdType.NativeAd);
         bool isFarsi = Get.locale?.languageCode == 'fa'; //* Check if language is Farsi
         final gameViewModel = Get.find<GameViewModel>();
         await gameViewModel.initializeGame(

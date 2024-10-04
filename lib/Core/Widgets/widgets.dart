@@ -12,8 +12,12 @@ void showMyDialog({
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title:  Text(title ??'Exit App'.tr), //* Dialog title
-      content:  Text(content ??'Do you really want to exit?'.tr), //* Dialog content
+      title:  Text(title ??'Exit App'.tr,
+      style: Get.textTheme.headlineSmall,
+      ), //* Dialog title
+      content:  Text(content ??'Do you really want to exit?'.tr,
+        style: Get.textTheme.bodyLarge,
+      ), //* Dialog content
       actions: <Widget>[
         //! "No" button to dismiss the dialog without exiting
         TextButton(
@@ -21,12 +25,16 @@ void showMyDialog({
             Navigator.pop(context);
             cancel;
           },
-          child: Text('No'.tr),
+          child: Text('No'.tr,
+          style: Get.textTheme.bodyMedium,
+          ),
         ),
         //! "Yes" button to close both the dialog and the current screen
         TextButton(
           onPressed: accept,
-          child:  Text('Yes'.tr),
+          child:  Text('Yes'.tr,
+            style: Get.textTheme.bodyMedium,
+          ),
         ),
       ],
     ),

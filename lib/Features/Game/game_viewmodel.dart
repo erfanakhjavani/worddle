@@ -5,6 +5,7 @@ import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import '../../Core/Constants/keyboard.dart';
 import 'game_model.dart';
 
+
 class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   late WorddleGame game;
 
@@ -19,6 +20,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   var usePopper = false.obs;
   var helpClickCount = 0.obs;
   var isLoadAds =  false.obs;
+  var watchedCount = 0.obs;
 
   late AnimationController lottieController;
   late AnimationController popperController;
@@ -65,6 +67,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
     isGameOver.value = false;
     usePopper.value = false;
     helpClickCount.value = 0;
+    watchedCount.value = 0;
   }
 
 
@@ -182,7 +185,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
 
   void setIncorrectPosition(int index, String char) {
     game.worddleBoard[currentRow.value][index].code = 3; // Incorrect letter
-    if (letterColors[char] != Colors.green) {
+    if (letterColors[char] != Colors.green && letterColors[char] != Colors.amber.shade400) {
       letterColors[char] = Colors.grey.shade700;
     }
   }
@@ -242,7 +245,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
 
   // Set up a timer for periodic tasks
   void setupTimer() {
-    timer = Timer.periodic(const Duration(seconds: 6), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 4), (Timer t) {
       lottieController.reset();
       checkAdLoaded();
       lottieController.forward();
