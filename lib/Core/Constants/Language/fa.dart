@@ -1,4 +1,4 @@
-Map<String, String> get faIR => {
+Map<String, String> get fa => {
   'play_local': 'بازی محلی',
   'online': 'بازی آنلاین',
   'settings': 'تنظیمات',

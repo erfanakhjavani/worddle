@@ -1,4 +1,4 @@
- Map<String, String> get enUS => {
+ Map<String, String> get en => {
    'play_local': 'Play Local',
    'online' : 'Online',
    'settings' : 'Settings',

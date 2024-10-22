@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Core/Constants/keyboard.dart';
+import 'package:wordle/Core/helper/check_language_keyboard.dart';
 import 'game_viewmodel.dart';
 
 class GameKeyboard extends StatelessWidget {
@@ -11,27 +11,19 @@ class GameKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isFarsi = viewModel.isFarsi.value;
 
     //! Selecting keyboard rows based on the language
-    final rows = [
-      isFarsi ? row1Farsi : row1English,
-      isFarsi ? row2Farsi : row2English,
-      isFarsi ? row3Farsi : row3English,
-    ];
+    final rows = languagesKeyboard();
 
-    return Directionality(
-      textDirection: isFarsi ? TextDirection.rtl : TextDirection.ltr,
-      child: Column(
+    return  Column(
         children: [
           //! Building rows of the keyboard
-          for (var row in rows) ...[
+          for (var row in rows!) ...[
             buildKeyboardRow(row),
             const SizedBox(height: spacing), //* Adds space between rows
           ],
         ],
-      ),
-    );
+      );
   }
 
   //! Builds a single keyboard row

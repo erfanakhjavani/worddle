@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "300228468940",
+    "project_id": "worddle-f834d",
+    "storage_bucket": "worddle-f834d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300228468940:android:f8e02e6008040c95e62269",
+        "android_client_info": {
+          "package_name": "com.example.wordle.raviar.wordle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300228468940-lvm372sogohh30b7o1qrffkl1q8sel0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo8GtOnbBalLoeJSO03Mt18RSyFx_SJmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300228468940-lvm372sogohh30b7o1qrffkl1q8sel0e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "300228468940-c2om134ukqh93sl10o91tjpken5v13pv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wordle.raviar.wordle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

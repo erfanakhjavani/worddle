@@ -22,12 +22,12 @@ class WorddleGame {
   Future<void> initGame() async {
     if (isFarsi) {
       //! Load Farsi dictionary
-      Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: 'farsi');
-      Set<String> dictionary2 = await generateDictionary(wordLength: wordLength, lang: 'farsi2');
+      Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: 'fa');
+      Set<String> dictionary2 = await generateDictionary(wordLength: wordLength, lang: 'fa2');
       wordList = dictionary.union(dictionary2).toList(); //* Combine two dictionaries
     } else {
       //! Load English dictionary
-      Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: 'english');
+      Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: 'en');
       wordList = dictionary.toList();
     }
 

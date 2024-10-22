@@ -53,7 +53,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
       children: [
         Text(
           label, //* Display label text for each section
-          style: Get.textTheme.bodyMedium!.copyWith(fontSize: 40),
+          style: Get.textTheme.bodyMedium!.copyWith(fontSize: 30)
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +103,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
       ),
       onPressed: () async {
         await Appodeal.show(AppodealAdType.NativeAd);
-        bool isFarsi = Get.locale?.languageCode == 'fa'; //* Check if language is Farsi
+        bool isFarsi = Get.locale?.languageCode == 'fa' || Get.locale?.languageCode == 'ar'; //* Check if language is Farsi
         final gameViewModel = Get.find<GameViewModel>();
         await gameViewModel.initializeGame(
           controller.wordLength.value,

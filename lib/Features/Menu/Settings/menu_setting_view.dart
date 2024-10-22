@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
+import 'package:wordle/Features/Authentication/authentication_view.dart';
 import 'package:wordle/Features/Menu/Settings/menu_setting_viewmodel.dart';
 
 import '../../Language/language_view.dart';
@@ -82,7 +83,18 @@ class MenuSettingView extends GetView<MenuSettingViewmodel> {
               ],
             ),
             const SizedBox(height: 20),
-
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  Get.to(AuthenticationView());
+                },
+                child:  Text('Sign IN',
+                  style: Get.textTheme.bodyMedium!.copyWith(
+                      fontFamily: ''
+                  ),
+                ),
+              ),
+            ),
 
              const Spacer(),
              Center(child: Text('${'Version'.tr}: 1.0.0',

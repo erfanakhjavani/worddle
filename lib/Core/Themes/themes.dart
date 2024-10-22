@@ -30,7 +30,7 @@ class Themes {
 
   //! Function to get text theme based on dark mode setting
   static TextTheme _getTextTheme({required bool isDarkMode}) {
-    String fontFamily = Get.locale.toString() == 'en' ? 'Roboto' : 'Yekan';
+    String fontFamily =  'Roboto';
     Color textColor = isDarkMode ? AppColors.primary : AppColors.secondary;
     return TextTheme(
       labelSmall: TextStyle(
