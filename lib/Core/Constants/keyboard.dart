@@ -9,8 +9,8 @@ final List<String> row3Farsi = ['DO', 'چ', 'پ', 'و', 'د', 'ذ', 'ر', 'ز', 
 
 
 // لیست حروف عربی
-final List<String> row1Arabic = ['ج', 'ح', 'خ', 'ه', 'ع', 'غ', 'ف', 'ق', 'ث', 'ص', 'ض'];
-final List<String> row2Arabic = ['DEL','م', 'ن', 'ت', 'ا', 'ل', 'ب', 'ی', 'س', 'ش'];
+final List<String> row1Arabic = ['ک','ج', 'ح', 'خ', 'ه', 'ع', 'غ', 'ف', 'ق', 'ث', 'ص', 'ض'];
+final List<String> row2Arabic = ['DEL','م', 'ن', 'ت', 'ا','آ', 'ل', 'ب', 'ی', 'س', 'ش'];
 final List<String> row3Arabic = ['DO', 'ظ', 'ط', 'ز', 'ر', 'ذ', 'د', 'پ', 'و', 'ؤ', 'ئ'];
 
 // لیست حروف فرانسوی

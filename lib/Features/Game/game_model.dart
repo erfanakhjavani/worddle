@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class WorddleGame {
   //! Game status message and target word
@@ -20,14 +21,14 @@ class WorddleGame {
 
   //! Initialize the game and load the dictionary based on the language
   Future<void> initGame() async {
-    if (isFarsi) {
+    if (Get.locale!.languageCode == 'fa') {
       //! Load Farsi dictionary
       Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: 'fa');
       Set<String> dictionary2 = await generateDictionary(wordLength: wordLength, lang: 'fa2');
       wordList = dictionary.union(dictionary2).toList(); //* Combine two dictionaries
     } else {
-      //! Load English dictionary
-      Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: 'en');
+      //! Load other dictionary
+      Set<String> dictionary = await generateDictionary(wordLength: wordLength, lang: Get.locale!.languageCode);
       wordList = dictionary.toList();
     }
 
