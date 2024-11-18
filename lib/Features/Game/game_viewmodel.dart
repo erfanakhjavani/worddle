@@ -20,6 +20,8 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   var helpClickCount = 0.obs;
   var isLoadAds =  false.obs;
   var watchedCount = 0.obs;
+  var isChecking = false.obs;
+
 
   late AnimationController lottieController;
   late AnimationController popperController;
@@ -96,18 +98,23 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
 
   // Submit the current guess
   void submitGuess() async {
-    wordMessage.value = '';
     if (!canSubmitGuess()) return;
+
+    wordMessage.value = '';
+    isChecking.value = true;
 
     String guess = getCurrentGuess();
     if (!game.checkWord(guess)) {
       wordMessage.value = 'The word does not exist. Try again.'.tr;
+      isChecking.value = false; // Reset isChecking if the word is invalid
       return;
     }
 
     await animateAndCheckLetters(guess);
     handleGuessResult(guess);
+    isChecking.value = false; // Allow user to submit another guess
   }
+
 
   // Handle the result of a guess
   void handleGuessResult(String guess) {
@@ -206,17 +213,28 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
 
   // Check if the guess can be submitted
   bool canSubmitGuess() {
-    return !isGameOver.value && currentLetter.value == game.wordLength && currentRow.value < game.maxChances;
+    return !isGameOver.value
+        && !isChecking.value
+        && currentLetter.value == game.wordLength
+        && currentRow.value < game.maxChances;
   }
+
 
   // Check if the letter can be inserted
   bool canInsertLetter() {
-    return !isGameOver.value && currentLetter.value < game.wordLength && currentRow.value < game.maxChances;
+    return !isGameOver.value &&
+        currentLetter.value < game.wordLength
+        && currentRow.value < game.maxChances
+    ;
   }
 
   // Check if the letter can be deleted
   bool canDeleteLetter() {
-    return !isGameOver.value && currentLetter.value > 0 && currentRow.value < game.maxChances;
+    return !isGameOver.value
+        && !isChecking.value
+        && currentLetter.value > 0
+        && currentRow.value < game.maxChances
+    ;
   }
 
   // Check if the player is out of chances
