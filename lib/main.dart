@@ -12,6 +12,7 @@ import 'Core/Themes/themes.dart';
 
 //! Main function to initialize the app and set up system configurations
 void main() async{
+  Get.put(ThemeService()); //* Initialize and store the theme service
   runApp(const Main()); //* Run the main app widget
 }
 
