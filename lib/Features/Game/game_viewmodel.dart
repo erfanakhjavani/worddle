@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import '../../Core/Constants/keyboard.dart';
 import 'game_model.dart';
 
@@ -247,7 +246,7 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   void setupTimer() {
     timer = Timer.periodic(const Duration(seconds: 4), (Timer t) {
       lottieController.reset();
-      checkAdLoaded();
+      // checkAdLoaded();
       lottieController.forward();
     });
   }
@@ -292,10 +291,10 @@ class GameViewModel extends GetxController with GetTickerProviderStateMixin {
   }
 
 
-  Future<void> checkAdLoaded() async {
-    if (await Appodeal.isLoaded(AppodealAdType.BannerBottom)) {
-      isLoadAds.value = true;
-    }
-  }
+  // Future<void> checkAdLoaded() async {
+  //   if (await Appodeal.isLoaded(AppodealAdType.BannerBottom)) {
+  //     isLoadAds.value = true;
+  //   }
+  // }
 
 }

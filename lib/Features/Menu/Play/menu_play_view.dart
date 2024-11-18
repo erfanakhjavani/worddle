@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import 'package:wordle/Core/Constants/app_colors.dart';
 import 'package:wordle/Core/Themes/theme_service.dart';
 import 'package:wordle/Features/Game/game_view.dart';
@@ -102,7 +101,7 @@ class MenuPlayView extends GetView<MenuPlayViewModel> {
         ),
       ),
       onPressed: () async {
-        await Appodeal.show(AppodealAdType.NativeAd);
+        //await Appodeal.show(AppodealAdType.NativeAd);
         bool isFarsi = Get.locale?.languageCode == 'fa' || Get.locale?.languageCode == 'ar'; //* Check if language is Farsi
         final gameViewModel = Get.find<GameViewModel>();
         await gameViewModel.initializeGame(

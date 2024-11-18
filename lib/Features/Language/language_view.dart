@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import 'package:wordle/Features/Menu/menu_view.dart';
 
 

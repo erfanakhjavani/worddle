@@ -12,7 +12,7 @@ class AppRoute{
 
 
 
-  static List<GetPage> pages = [
+  static List<GetPage> pages ()=> [
     GetPage(name: menuView, page: () => const MenuView()),
     GetPage(name: splashView, page: () => const SplashView()),
     GetPage(name: languageView, page: () => const LanguageView()),

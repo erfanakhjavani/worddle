@@ -35,7 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  icons_launcher: ^2.1.7
+  icons_launcher: ^3.0.0
   flutter_animate: ^4.5.0
   get: ^4.6.6
   flutter_native_splash: ^2.4.1
@@ -43,14 +43,11 @@ dependencies:
   loading_animation_widget: ^1.2.1
   url_launcher: ^6.1.7
   lottie: ^3.1.2
-  stack_appodeal_flutter: ^3.3.2
   dio: ^5.7.0
   firebase_core: ^3.6.0
   firebase_auth: ^5.3.1
   google_sign_in: ^6.2.1
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  path_provider: ^2.0.9
+
 
 dev_dependencies:
   flutter_test:
@@ -91,16 +88,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Debug
-      fonts:
-        - asset: assets/otf/Debug.otf
-    - family: Yekan
-      fonts:
-        - asset: assets/ttf/Yekan.ttf
-    - family: Roboto
-      fonts:
-        - asset: assets/ttf/Roboto-Regular.ttf
+#    - family: Debug
+ #     fonts:
+  #      - asset: assets/otf/Debug.otf
+ #   - family: Yekan
+  #    fonts:
+ #       - asset: assets/ttf/Yekan.ttf
+  #  - family: Roboto
+   #   fonts:
+ #       - asset: assets/ttf/Roboto-Regular.ttf
+  #  fonts:
 
 
   #
@@ -109,14 +106,13 @@ flutter:
 
 
 icons_launcher:
-  image_path: 'assets/logo.png'
+  image_path: "assets/logo.png"
   platforms:
     android:
       enable: true
-      adaptive_round_image: 'assets/logo.png'
     ios:
       enable: true
-      image_path: 'assets/logo.png'
-
+    web:
+      enable: true
 
 

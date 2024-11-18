@@ -30,27 +30,26 @@ class Themes {
 
   //! Function to get text theme based on dark mode setting
   static TextTheme _getTextTheme({required bool isDarkMode}) {
-    String fontFamily =  'Roboto';
     Color textColor = isDarkMode ? AppColors.primary : AppColors.secondary;
     return TextTheme(
       labelSmall: TextStyle(
-          fontFamily: fontFamily, fontSize: 8, fontWeight: FontWeight.w400, color: textColor),
+           fontSize: 8, fontWeight: FontWeight.w400, color: textColor),
       labelMedium: TextStyle(
-          fontFamily: fontFamily, fontSize: 10, fontWeight: FontWeight.w400, color: textColor),
+           fontSize: 10, fontWeight: FontWeight.w400, color: textColor),
       labelLarge: TextStyle(
-          fontFamily: fontFamily, fontSize: 12, fontWeight: FontWeight.w400, color: textColor),
+           fontSize: 12, fontWeight: FontWeight.w400, color: textColor),
       bodySmall: TextStyle(
-          fontFamily: fontFamily, fontSize: 14, fontWeight: FontWeight.w500, color: textColor),
+           fontSize: 14, fontWeight: FontWeight.w500, color: textColor),
       bodyMedium: TextStyle(
-          fontFamily: fontFamily, fontSize: 16, fontWeight: FontWeight.w500, color: textColor),
+           fontSize: 16, fontWeight: FontWeight.w500, color: textColor),
       bodyLarge: TextStyle(
-          fontFamily: fontFamily, fontSize: 18, fontWeight: FontWeight.w500, color: textColor),
+           fontSize: 18, fontWeight: FontWeight.w500, color: textColor),
       headlineSmall: TextStyle(
-          fontFamily: fontFamily, fontSize: 20, fontWeight: FontWeight.w500, color: textColor),
+           fontSize: 20, fontWeight: FontWeight.w500, color: textColor),
       headlineMedium: TextStyle(
-          fontFamily: fontFamily, fontSize: 30, fontWeight: FontWeight.w500, color: textColor),
+           fontSize: 30, fontWeight: FontWeight.w500, color: textColor),
       headlineLarge: TextStyle(
-          fontFamily: fontFamily, fontSize: 40, fontWeight: FontWeight.w500, color: textColor),
+           fontSize: 40, fontWeight: FontWeight.w500, color: textColor),
     );
   }
 }

@@ -9,7 +9,7 @@ class SplashRepository extends GetConnect {
 
     if (connectivityResult.contains(ConnectivityResult.none)) {
       //! No network connection.
-      return false;
+      return true;
     } else {
       //! Connected to a network (Wi-Fi or mobile).
       try {
@@ -19,7 +19,7 @@ class SplashRepository extends GetConnect {
           return true;
         } else {
           //! Connected to a network but no internet access.
-          return false;
+          return true;
         }
       } on TimeoutException catch (_) {
         print(_.toString());
@@ -28,7 +28,7 @@ class SplashRepository extends GetConnect {
       } catch (e) {
         e.toString();
         //! Other errors.
-        return false;
+        return true;
       }
     }
   }

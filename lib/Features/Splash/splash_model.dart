@@ -4,3 +4,7 @@ enum ConnectionStatus {
   connected,
   disconnected,
 }
+
+class SplashModel {
+
+}

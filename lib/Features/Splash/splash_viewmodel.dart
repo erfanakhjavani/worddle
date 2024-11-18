@@ -1,8 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
-import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
 import 'package:wordle/Features/Language/language_view.dart';
-import '../../Core/Constants/key.dart';
 import '../../Core/Repositories/check_connectivity.dart';
 import 'splash_model.dart';
 
@@ -25,32 +23,32 @@ class SplashViewmodel extends GetxController {
 
 
 
-  initialization() {
-    Appodeal.setTesting(true); //only not release mode
-    Appodeal.setAutoCache(AppodealAdType.Banner, true);
-    Appodeal.setAutoCache(AppodealAdType.RewardedVideo, true);
-    Appodeal.setUseSafeArea(false);
-
-
-    Appodeal.initialize(
-      appKey: key,
-      adTypes: [
-        AppodealAdType.RewardedVideo,
-        AppodealAdType.Banner,
-      ],
-      onInitializationFinished: (errors) {
-        errors?.forEach((error) => print(error.description));
-        print('onInitializationFinished: errors - ${errors?.length ?? 0}');
-      },
-    );
-  }
+  // initialization() {
+  //   Appodeal.setTesting(true); //only not release mode
+  //   Appodeal.setAutoCache(AppodealAdType.Banner, true);
+  //   Appodeal.setAutoCache(AppodealAdType.RewardedVideo, true);
+  //   Appodeal.setUseSafeArea(false);
+  //
+  //
+  //   Appodeal.initialize(
+  //     appKey: key,
+  //     adTypes: [
+  //       AppodealAdType.RewardedVideo,
+  //       AppodealAdType.Banner,
+  //     ],
+  //     onInitializationFinished: (errors) {
+  //       errors?.forEach((error) => print(error.description));
+  //       print('onInitializationFinished: errors - ${errors?.length ?? 0}');
+  //     },
+  //   );
+  // }
 
   //! Method to check internet connection and handle the navigation flow
   Future<void> checkConnection() async {
     connectionStatus.value = ConnectionStatus.initial; //* Set initial status
     Future.delayed(const Duration(seconds: 1), () async {
-      await initialization();
-      Appodeal.destroy(AppodealAdType.BannerBottom);
+    //  await initialization();
+     // Appodeal.destroy(AppodealAdType.BannerBottom);
       bool isConnected = await splashRepository.checkConnectivity(); //* Check if connected
       if (isConnected == true) {
         connectionStatus.value = ConnectionStatus.connected; //* Update status to connected

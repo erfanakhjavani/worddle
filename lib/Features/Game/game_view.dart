@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:stack_appodeal_flutter/stack_appodeal_flutter.dart';
-import 'package:wordle/Core/Constants/app_colors.dart';
+
 import 'package:wordle/Core/Widgets/widgets.dart';
 import 'package:wordle/Features/Menu/menu_view.dart';
 import '../../Core/Widgets/popper_generator.dart';
@@ -68,7 +67,7 @@ class GameView extends GetView<GameViewModel> {
                       showMyDialog(
                           context: context,
                           accept: () {
-                            Appodeal.destroy(AppodealAdType.BannerBottom);
+                            // Appodeal.destroy(AppodealAdType.BannerBottom);
                             Get.offAll(
                               const MenuView(),
                               transition: Transition.rightToLeft,
@@ -110,17 +109,17 @@ class GameView extends GetView<GameViewModel> {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 0,
-                  child: Obx(() {
-                    if (controller.isLoadAds.value) {
-                      Appodeal.show(AppodealAdType.BannerBottom);
-                      return const SizedBox();
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
-                ),
+                // Expanded(
+                //   flex: 0,
+                //   child: Obx(() {
+                //     if (controller.isLoadAds.value) {
+                //        Appodeal.show(AppodealAdType.BannerBottom);
+                //       return const SizedBox();
+                //     } else {
+                //       return const SizedBox();
+                //     }
+                //   }),
+                // ),
               ],
             ),
 
@@ -240,19 +239,19 @@ class GameView extends GetView<GameViewModel> {
 
                 return ElevatedButton(
                   onPressed: () async {
-                    if (controller.watchedCount.value < 2) {
-                      bool isRewarded = await Appodeal.show(AppodealAdType.RewardedVideo);
-
-                      if (isRewarded) {
-                        controller.onHelpClicked();
-                        controller.watchedCount.value++;
-                        Get.back();
-                      }
-                    } else {
-                      Get.snackbar('attention'.tr, 'You have already watched the video.'.tr,
-                      colorText: AppColors.primary,
-                      );
-                    }
+                    // if (controller.watchedCount.value < 2) {
+                    //   bool isRewarded = await Appodeal.show(AppodealAdType.RewardedVideo);
+                    //
+                    //   if (isRewarded) {
+                    //     controller.onHelpClicked();
+                    //     controller.watchedCount.value++;
+                    //     Get.back();
+                    //   }
+                    // } else {
+                    //   Get.snackbar('attention'.tr, 'You have already watched the video.'.tr,
+                    //   colorText: AppColors.primary,
+                    //   );
+                    // }
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.zero,
