@@ -1,6 +1,7 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:wordle/Features/Language/language_view.dart';
+import 'package:wordle/Features/Menu/menu_view.dart';
 import '../../Core/Repositories/check_connectivity.dart';
 import 'splash_model.dart';
 
@@ -53,7 +54,7 @@ class SplashViewmodel extends GetxController {
       if (isConnected == true) {
         connectionStatus.value = ConnectionStatus.connected; //* Update status to connected
         Get.offAll(
-          const LanguageView(), //* Navigate to the Language selection view if connected
+          const MenuView(), //* Navigate to the Language selection view if connected
           transition: Transition.fadeIn,
           duration: const Duration(seconds: 1), //* Smooth transition with 1-second duration
           curve: Curves.easeIn, //* Use easeIn curve for the animation
